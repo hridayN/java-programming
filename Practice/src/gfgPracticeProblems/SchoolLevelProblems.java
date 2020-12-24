@@ -34,7 +34,21 @@ public class SchoolLevelProblems {
 		//PrintSumAndAverageCollectively();
 		//IsArrayPerfect();
 		//IsPalindrome();
-		PrintStringsShrinkingTriangle_Downwards();
+		//PrintStringsShrinkingTriangle_Downwards();
+		//IsArrayPalindromic();
+		//UnderStandingBreak();
+		/*
+		 * long sum = seriesSum(3);
+		 
+		System.out.print("sum: " + sum);
+		*/
+		//SumOfSeries(5);
+		/*
+		long[] arr = {5512, 9493, 6319, 7495, 1725, 9719, 8305, 410, 4862, 2154, 8357, 5887, 1151, 4483, 6770, 5179};
+		long minValueToBalance = minValueToBalance(arr, 16);
+		System.out.print("minValueToBalance: " + minValueToBalance);
+		*/
+		PrintMinimumNoToMakeSumEven();
 		/*
 		for (int i = 0; i < "abc".length(); i++) {
 			String str = ReplaceCharAtIndexWithGivenChar("abc", '.', i);
@@ -77,6 +91,7 @@ public class SchoolLevelProblems {
 		value = RoundValuesToDecimal(552.28283, 2);
 		System.out.println("value: '" + value + "'");
 	*/
+		
 	}
 	
 	public static void NumbersExample() {
@@ -909,4 +924,104 @@ public class SchoolLevelProblems {
 		return result;
 	}
 	
+	public static void IsArrayPalindromic() {
+		Scanner scan = new Scanner(System.in);
+		int testCases = Integer.parseInt(scan.nextLine());
+		String wholeString = "";
+		for (int i = 0; i < testCases; i++) {
+			int elements = Integer.parseInt(scan.next());
+			int arr[] = new int[elements];
+			boolean isArrayPalindromic = true;
+			for (int j = 0; j < arr.length; j++) {
+				arr[j] = Integer.parseInt(scan.next());
+				isArrayPalindromic = IsPalindrome(arr[j]+"");
+				if (!isArrayPalindromic) {
+					break;
+				}
+			}
+			wholeString = (isArrayPalindromic) ? wholeString.concat("1" + ",") : wholeString.concat("0" + ",");
+		}
+		
+		for (int i = 0; i < wholeString.split(",").length; i++) {
+			System.out.println(wholeString.split(",")[i]);
+		}
+	}
+	
+	public static boolean IsPalindrome(String str) {
+		int leftPointer = 0, rightPointer = str.length()-1;
+		while(leftPointer <= rightPointer) {
+			if (str.charAt(leftPointer) != str.charAt(rightPointer)) {
+				return false;
+			}
+			leftPointer++;
+			rightPointer--;
+		}
+		return true;
+	}
+
+	public static void UnderStandingBreak() {
+		int i = 0;
+		while(i++<5) {
+			if (i == 3) {
+				System.out.print(i + " ");
+				break;
+			}
+			System.out.print(i + " ");
+		}
+	}
+
+    public static long seriesSum(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        return n+seriesSum(n-1);
+    }
+    
+    public static void SumOfSeries(int n) {
+    	long sum = 0;
+    	for (int i=0; i <=n; i+=2) {
+    		sum = sum + i + i + 1;
+    		//sum+=i+1;
+    	}
+    	System.out.print("sum: " + sum);
+    }
+    
+    public static long minValueToBalance(long a[] ,int n)
+    {
+        long rightSum = 0, leftSum= 0;
+        for(int i=0; i < a.length; i++){
+            if (i < n/2) {
+                leftSum += a[i];
+            } else {
+                rightSum += a[i];
+            }
+        }
+        
+        System.out.println("leftSum: " + (5512+9493+6319+7495+1725+9719+8305+410));
+        System.out.println("leftSum: " + leftSum);
+        System.out.println("rightSum: "+ rightSum);
+        return (leftSum - rightSum > 0) ? (leftSum - rightSum) : (rightSum-leftSum);
+    }
+    
+    public static void PrintMinimumNoToMakeSumEven() {
+    	int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    	//int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    	int sum = 0, minimumNoToMakeSumEven = 0;
+    	for (int i = 0; i < arr.length; i++) {
+			sum += arr[i];
+		}
+    	minimumNoToMakeSumEven = (sum % 2 == 0) ? 2 : 1;
+    	System.out.println("minimumNoToMakeSumEven: " + minimumNoToMakeSumEven);
+    }
+
+    public static void PrintMaxIlluminatedDays() {
+    	int[] arr = {1, 1, 2};
+    	int maxDays = arr[0];
+    	for (int i = 0; i < arr.length; i++) {
+    		if (arr[i] >= maxDays) {
+    			maxDays = arr[i];
+    		}
+		}
+    	System.out.println("maxDays: " + maxDays);
+    }
 }
