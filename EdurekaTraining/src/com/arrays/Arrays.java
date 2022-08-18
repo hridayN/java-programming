@@ -27,11 +27,12 @@ public class Arrays {
         int []d = new int[] {1, 2, 3, 4, 5};
     }
 
-    public static void print1DArray() {
-        int[] arr = {1, 2, 3, 4, 5};
+    public static void print1DArray(int[] arr) {
+        //int[] arr = {1, 2, 3, 4, 5};
         for (int index = 0; index < arr.length; index++) {
             System.out.print("[" + index + "]: " + arr[index] + ", ");
         }
+        System.out.println();
     }
 
     public static void initialization_2D() {

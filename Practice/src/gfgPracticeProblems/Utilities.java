@@ -1,16 +1,15 @@
 package gfgPracticeProblems;
 
 public class Utilities {
-
 	public static void main(String[] args) {
 		int[] arr = {1, 5, 3, 2, 0, 4 };
-		//int[] arr = { 5, 4, 3, 2, 1, 0 };
-		//arr = BubbleSort(arr);
+		// int[] arr = { 5, 4, 3, 2, 1, 0 };
+		arr = BubbleSort(arr);
 		//arr = SelectionSort(arr);
-		arr = InsertionSort(arr);
+		/*arr = InsertionSort(arr);
 		for (int i = 0; i < arr.length; i++) {
 			System.out.print(arr[i] + ", ");
-		}
+		}*/
 	}
 
 	public static int[] BubbleSort(int[] arr) {
@@ -41,7 +40,6 @@ public class Utilities {
 			if (swaps == 0) {
 				sorted = true;
 			}
-			
 		}
 		return arr;
 	}

@@ -1,0 +1,11 @@
+The definitive book for Java is
+"Java: The Complete Reference" by Oracle Press—this, along with the Java Language
+Specification, is the go-to resource for language lawyers.
+
+Joshua Bloch's "Effective Java" (second edition) is one of the best all-round pro¬
+gramming books we have come across, addressing everything from the pitfalls of
+inheritance, to the Executor framework
+
+Tony Bevis'
+"Java Design Pattern Essentials"
+

@@ -13,7 +13,7 @@ public class BasicLevelProblems {
 			System.out.print(arr[j] + ", ");
 		}
 		*/
-		BinarySearch();
+		//BinarySearch();
 	}
 	
 	public static void RotateArray() {
