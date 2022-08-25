@@ -5,7 +5,8 @@ public class Strings {
         /*StringBuffer();
         StringBuilder();*/
         String str = "Geeks";
-        System.out.println(reverseWord(str));
+        // System.out.println(reverseWord(str));
+        StringBuilderExample();
     }
 
     /*
@@ -46,5 +47,11 @@ public class Strings {
             reversedWord = reversedWord.concat(str.charAt(i) + "");
         }
         return reversedWord;
+    }
+
+    public static void StringBuilderExample() {
+        StringBuilder str = new StringBuilder("xhx");
+        str.delete(0, 1);
+        System.out.print(String.format("str: %s", str));
     }
 }
