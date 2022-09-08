@@ -1,8 +1,8 @@
 package Algorithms;
 
 public class Sorting {
-    public static void main(String[] args){
-        int[] arr = {4, 2, 7, 1, 3};
+    public static void main(String[] args) {
+        int[] arr = {7, 8, 3, 1, 2};
         //arr = bubbleSort(arr);
         //arr = selectionSort(arr);
         arr = insertionSort(arr);
@@ -22,18 +22,24 @@ public class Sorting {
         System.out.println();
     }
 
+    // Principle: Compare each element with it's next and take the largest element to last in every iteration
     public static int[] bubbleSort(int[] arr) {
         int passThrough = 0, comparisons = 0;
+        // Outer loop will run as many times as there are elements in the array
         for (int i = 0; i < arr.length; i++) {
             int swaps = 0;
             System.out.println("Passthrough " + ++passThrough);
+            /*Inner loop will run elements-sortedElements many times as there are elements in the array
+             * arr.length - passThrough: it indicates no. of the unsorted elements
+             */
             for (int j = 0; j < arr.length - passThrough; j++) {
-                System.out.println("Comparing (" + arr[j] + ", " + arr[j+1] + ")");
+                System.out.println("Comparing (" + arr[j] + ", " + arr[j + 1] + ")");
                 comparisons++;
-                if (arr[j] > arr[j+1]) {
-                    arr[j] = arr[j]-arr[j+1];
-                    arr[j+1] = arr[j]+arr[j+1];
-                    arr[j] = arr[j+1]-arr[j];
+                // If current element is greater than it's next element, swap both
+                if (arr[j] > arr[j + 1]) {
+                    arr[j] = arr[j] - arr[j + 1];
+                    arr[j + 1] = arr[j] + arr[j + 1];
+                    arr[j] = arr[j + 1] - arr[j];
                     swaps++;
                 }
             }
@@ -54,12 +60,12 @@ public class Sorting {
         // Principle: Smallest value will be placed at starting index in every subsequent pass
         // Step 1: Determine the lowest value in the array
         // Step 2: Swap the lowest value and smallest value after every pass
-        long startTime = System.currentTimeMillis();
+        //long startTime = System.currentTimeMillis();
         int passThrough = 0, comparisons = 0;
-        for (int i = 0; i < arr.length-1; i++) {
-            int smallestValueIndex = i;
-            System.out.println("\n" + (i+1) +  "th Pass");
-            for (int j = i+1; j < arr.length; j++) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            int smallestValueIndex = i, swaps = 0;
+            System.out.println("\n" + (i + 1) + "th Pass");
+            for (int j = i + 1; j < arr.length; j++) {
                 System.out.println("Compared (" + arr[smallestValueIndex] + ", " + arr[j] + ")");
                 comparisons++;
                 if (arr[smallestValueIndex] > arr[j]) {
@@ -72,10 +78,17 @@ public class Sorting {
                 arr[i] = arr[i] - arr[smallestValueIndex];
                 arr[smallestValueIndex] = arr[i] + arr[smallestValueIndex];
                 arr[i] = arr[smallestValueIndex] - arr[i];
+                swaps++;
             }
             passThrough++;
             System.out.println("Smallest: " + arr[i]);
             print(arr);
+
+            // if no swaps are performed, means array is sorted
+            if (swaps == 0) {
+                System.out.println("Total Comparisons: " + comparisons);
+                return arr;
+            }
         }
         /*for (int i = 0; i < arr.length-1; i++) {
             int smallestValueIndex = i;
@@ -93,27 +106,28 @@ public class Sorting {
         }*/
 
         System.out.println("Total Comparisons: " + comparisons);
-        long endTime = System.currentTimeMillis();
+        /*long endTime = System.currentTimeMillis();
         long timeElapsed = endTime - startTime;
-        System.out.println("Execution time in seconds: " + timeElapsed);
+        System.out.println("Execution time in seconds: " + timeElapsed);*/
         return arr;
     }
 
     //Best in case of mostly sorted array
     public static int[] insertionSort(int[] arr) {
         int comparisons = 0, pass = 0;
-        for(int i = 1; i < arr.length; i++){
+        for (int i = 1; i < arr.length; i++) {
             pass++;
             System.out.println("Passthrough: " + pass);
             int temp = arr[i], gapIndex = i;
-            for (int j = i-1; j >= 0; j--) {
+            for (int j = i - 1; j >= 0; j--) {
                 System.out.println("Comparing (" + arr[j] + ", " + temp + ")");
                 comparisons++;
-                if (arr[j] > temp){
+                if (arr[j] > temp) {
                     // shift arr[j] to right
-                    arr[j+1] = arr[j];
+                    arr[j + 1] = arr[j];
                     // update gap
                     gapIndex = j;
+                    System.out.println(String.format("Gap created at: %d index", gapIndex));
                 }
                 // If current element is less than temp, start next pass
                 if (arr[j] <= temp) {
@@ -121,6 +135,8 @@ public class Sorting {
                 }
             }
             arr[gapIndex] = temp;
+            print(arr);
+            System.out.println();
         }
         System.out.println("Total comparisons: " + comparisons);
         return arr;
@@ -158,9 +174,9 @@ public class Sorting {
 
     // doesn't work for arrays
     public static void swap(int a, int b) {
-        a = a+b;
-        b = a-b;
-        a = a-b;
+        a = a + b;
+        b = a - b;
+        a = a - b;
     }
 
     public static int getItself(int itself, int dummy) {
@@ -170,16 +186,16 @@ public class Sorting {
     public static void quickSort(int[] arr, int startIndex, int endIndex) {
         if (startIndex < endIndex) {
             int pivotIndex = partition(arr, startIndex, endIndex);
-            quickSort(arr, startIndex, pivotIndex-1);
-            quickSort(arr, pivotIndex+1, endIndex);
+            quickSort(arr, startIndex, pivotIndex - 1);
+            quickSort(arr, pivotIndex + 1, endIndex);
         }
     }
 
     /* Principle: at the end, all elements smaller than pivot will be to the left of pivot and
-    * larger will be to the right of the pivot
-    */
+     * larger will be to the right of the pivot
+     */
     public static int partition(int[] arr, int startIndex, int endIndex) {
-        int pivot = arr[endIndex], left = startIndex-1;
+        int pivot = arr[endIndex], left = startIndex - 1;
         for (int i = startIndex; i < endIndex; i++) {
             if (arr[i] <= pivot) {
                 left++;
@@ -187,7 +203,7 @@ public class Sorting {
             }
         }
 
-        arr[endIndex] = getItself(arr[left+1], arr[left+1]=arr[endIndex]);
-        return left+1;
+        arr[endIndex] = getItself(arr[left + 1], arr[left + 1] = arr[endIndex]);
+        return left + 1;
     }
 }
