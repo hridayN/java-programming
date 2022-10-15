@@ -268,7 +268,7 @@ public class SinglyLinkedList {
         return tempNode;
     }
 
-    public static ListNode RemoveLoopFrpmLinkedList(ListNode list) {
+    public static ListNode RemoveLoopFromLinkedList(ListNode list) {
         ListNode fastPtr = list, slowPtr = list;
         while (fastPtr != null && fastPtr.next != null) {
             fastPtr = fastPtr.next.next;
@@ -344,12 +344,12 @@ public class SinglyLinkedList {
     }
 
     public static ListNode CreateLinkedList() {
-        ListNode first = new ListNode(10);
-        ListNode second = new ListNode(20);
-        ListNode third = new ListNode(30);
-        ListNode fourth = new ListNode(40);
-        ListNode fifth = new ListNode(50);
-        ListNode sixth = new ListNode(60);
+        ListNode first = new ListNode(4);
+        ListNode second = new ListNode(5);
+        ListNode third = new ListNode(6);
+        ListNode fourth = new ListNode(7);
+        ListNode fifth = new ListNode(8);
+        ListNode sixth = new ListNode(9);
 
         first.next = second;
         second.next = third;
@@ -361,9 +361,32 @@ public class SinglyLinkedList {
         return first;
     }
 
+    public static ListNode AddTwoSinglyLinkedLists(ListNode a, ListNode b) {
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        a = ReverseLinkedList(a);
+        b = ReverseLinkedList(b);
+        int carry = 0;
+        while(a != null || b != null) {
+            int x = (a != null) ? a.data : 0;
+            int y = (b != null) ? b.data : 0;
+            int sum = carry + x + y;
+            carry = sum / 10;
+            tail.next = new ListNode(sum % 10);
+            tail = tail.next;
+            a = a.next;
+            b = b.next;
+        }
+        if (carry > 0) {
+            tail.next = new ListNode(carry);
+        }
+        return dummy.next;
+    }
+
     public static void main(String[] args) {
         SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
         System.out.println(String.format("Length: %d", GetLength(null)));
+        /*// INITIALIZATION
         singlyLinkedList.head = new ListNode(10);
         ListNode second = new ListNode(20);
         ListNode third = new ListNode(30);
@@ -373,22 +396,25 @@ public class SinglyLinkedList {
         third.next = last;
         last.next = null;
         System.out.println(String.format("Length: %d", GetLength(singlyLinkedList.head)));
-        DisplayLinkedList(singlyLinkedList.head);
+        DisplayLinkedList(singlyLinkedList.head);*/
 
-        /*// Loop Detection in list
+        /* // Loop Detection in list
         ListNode loopedList = CreateLoopInLinkedList();
         System.out.println(String.format("Does loop exists: %b", DetectLoopInLinkedList(loopedList)));
         System.out.println(String.format("Loop exists at Node with data: %d", GetLoopStartNodeInLinkedList(loopedList)));*/
 
-        /*// Insert at beginning
+        ListNode list = CreateLinkedList();
+        ListNode updatedList = null;
+
+        /* INSERTION
+        // Insert at beginning
         ListNode list = CreateLinkedList();
         ListNode updatedList = InsertAtBeginning(list, 50);
         System.out.println(String.format("Length: %d", singlyLinkedList.GetLength(updatedList)));
-        DisplayLinkedList(updatedList);*/
+        DisplayLinkedList(updatedList);
 
         // Insert at end
-        ListNode list = CreateLinkedList();
-        ListNode updatedList = InsertAtEnd(list, 60);
+        updatedList = InsertAtEnd(list, 60);
         System.out.println(String.format("Length: %d", singlyLinkedList.GetLength(updatedList)));
         DisplayLinkedList(updatedList);
 
@@ -399,7 +425,11 @@ public class SinglyLinkedList {
         updatedList = InsertAtNthIndex(list, 2, 5);
         System.out.println(String.format("Length: %d", GetLength(updatedList)));
         DisplayLinkedList(updatedList);
+        updatedList = InsertNodeInSortedList(list, new ListNode(15));
+        DisplayLinkedList(updatedList);
+        */
 
+        /* DELETION
         // Delete node from a position other than first and last
         updatedList = DeleteNode(list, 1);
         System.out.println(String.format("Length: %d", GetLength(updatedList)));
@@ -419,26 +449,34 @@ public class SinglyLinkedList {
 
         // Delete node from invalid position
         updatedList = DeleteNode(list, 0);
+        updatedList = DeleteNodeByValue(list, 10);
+        DisplayLinkedList(updatedList);*/
 
+        /* // REVERSAL
         // Reverse LinkedList
         updatedList = ReverseLinkedList(list);
-        DisplayLinkedList(updatedList);
+        DisplayLinkedList(updatedList);*/
 
-        System.out.println(String.format("MiddleNode data: %d", GetMiddleNode(list).data));
+        /* // RETREIVAL
+        // System.out.println(String.format("MiddleNode data: %d", GetMiddleNode(list).data));
 
         // Get Nth node from end
         int position = 3;
         ListNode nthNodeFromEnd = GetNthNodeFromEnd(list, position);
-        System.out.println(String.format("%dth node from end is: [%d|%d]", position, nthNodeFromEnd.data, nthNodeFromEnd.next.data));
+        System.out.println(String.format("%dth node from end is: [%d|%d]", position, nthNodeFromEnd.data, nthNodeFromEnd.next.data));*/
 
+        /* // SWAPPING
         DisplayLinkedList(list);
         SwapPositionsDataInLinkedList(list, 2, 3);
-        DisplayLinkedList(list);
+        DisplayLinkedList(list);*/
+
+        /* // SORTING
         updatedList = BubbleSortLinkedList(list);
-        DisplayLinkedList(updatedList);
-        updatedList = InsertNodeInSortedList(list, new ListNode(15));
-        DisplayLinkedList(updatedList);
-        updatedList = DeleteNodeByValue(list, 10);
-        DisplayLinkedList(updatedList);
+        DisplayLinkedList(updatedList);*/
+
+        ListNode a = list;
+        ListNode b = ReverseLinkedList(CreateLinkedList());
+        updatedList = AddTwoSinglyLinkedLists(a, b);
+        DisplayLinkedList(ReverseLinkedList(updatedList));
     }
 }

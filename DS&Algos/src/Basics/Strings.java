@@ -1,12 +1,15 @@
 package Basics;
 
+import java.util.Stack;
+
 public class Strings {
     public static void main(String[] args){
         /*StringBuffer();
         StringBuilder();*/
-        String str = "Geeks";
+        String str = "SeeS";
         // System.out.println(reverseWord(str));
-        StringBuilderExample();
+        //StringBuilderExample();
+        System.out.println(String.format("%s is Palindrome: %b", str, isStringPalindrome(str)));
     }
 
     /*
@@ -54,4 +57,17 @@ public class Strings {
         str.delete(0, 1);
         System.out.print(String.format("str: %s", str));
     }
+
+    public static boolean isStringPalindrome(String str) {
+        int leftPtr = 0, rightPtr = str.length()-1;
+        while (leftPtr < rightPtr) {
+            if (str.charAt(leftPtr) != str.charAt(rightPtr)) return false;
+            leftPtr++;
+            rightPtr--;
+        }
+        return true;
+    }
+    /*public static void reverseStringUsingStack(String str) {
+        Stack<char>
+    }*/
 }

@@ -3,9 +3,13 @@ package Algorithms;
 public class Sorting {
     public static void main(String[] args) {
         int[] arr = {7, 8, 3, 1, 2};
-        //arr = bubbleSort(arr);
-        //arr = selectionSort(arr);
-        arr = insertionSort(arr);
+        /*// arr = bubbleSort(arr);
+        // arr = bubbleSortUsingWhile(arr);*/
+        /*// arr = selectionSort(arr);
+        // arr = selectionSortUsingWhile(arr);*/
+
+        /*arr = insertionSort(arr);
+        arr = insertionSortUsingWhile(arr);*/
         //print(arr);
         /*int a = 5, b = 7;
         System.out.println("Before swapping, a: " + a + ", b: " + b);
@@ -130,9 +134,11 @@ public class Sorting {
                     System.out.println(String.format("Gap created at: %d index", gapIndex));
                 }
                 // If current element is less than temp, start next pass
-                if (arr[j] <= temp) {
+                else break;
+
+                /*if (arr[j] <= temp) {
                     break;
-                }
+                }*/
             }
             arr[gapIndex] = temp;
             print(arr);
@@ -205,5 +211,63 @@ public class Sorting {
 
         arr[endIndex] = getItself(arr[left + 1], arr[left + 1] = arr[endIndex]);
         return left + 1;
+    }
+
+    public static int[] bubbleSortUsingWhile(int[] arr) {
+        int counter = 1;
+        while (counter < arr.length) {
+            int swaps = 0, j = 0;
+            while (j < arr.length - counter) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swaps++;
+                }
+                j++;
+            }
+            if (swaps == 0) return arr;
+            counter++;
+        }
+        return arr;
+    }
+
+    public static int[] selectionSortUsingWhile(int[] arr) {
+        int counter = 0;
+        while (counter < arr.length-1) {
+            int smallestValueIndex = counter, swaps = 0, innerCounter = counter + 1;
+            while (innerCounter < arr.length) {
+                if(arr[smallestValueIndex] > arr[innerCounter]) {
+                    smallestValueIndex = innerCounter;
+                }
+                if (smallestValueIndex != counter) {
+                    int temp = arr[smallestValueIndex];
+                    arr[smallestValueIndex] = arr[counter];
+                    arr[counter] = temp;
+                    swaps++;
+                }
+                innerCounter++;
+            }
+            if (swaps == 0) return arr;
+            counter++;
+        }
+        return arr;
+    }
+
+    public static int[] insertionSortUsingWhile(int[] arr) {
+        int counter = 1;
+        while (counter < arr.length) {
+            int gapIndex = counter, temp = arr[counter], innerCounter = counter-1;
+            while (innerCounter >= 0) {
+                if (arr[innerCounter] > temp) {
+                    arr[innerCounter + 1] = arr[innerCounter];
+                    gapIndex = innerCounter;
+                } else break;
+                innerCounter--;
+            }
+            arr[gapIndex] = temp;
+            counter++;
+        }
+        return arr;
     }
 }
