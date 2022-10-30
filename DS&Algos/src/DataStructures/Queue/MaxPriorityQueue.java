@@ -31,7 +31,7 @@ public class MaxPriorityQueue {
     }
 
     public void Insert(int value) {
-        if (size == heap.length-1) {
+        if (size == heap.length - 1) {
             Resize(2 * heap.length);
         }
 
@@ -41,16 +41,16 @@ public class MaxPriorityQueue {
     }
 
     /*
-    * This method performs bottom-up re-heapify
-    * For node at kth level, verify whether it is lesser than its parent, else swap both
-    * Usually required when Inserting a new node
-    * */
+     * This method performs bottom-up re-heapify
+     * For node at kth level, verify whether it is lesser than its parent, else swap both
+     * Usually required when Inserting a new node
+     * */
     public void Swim(int k) {
         // If k th level is for child, parent will be at k/2 th level
-        while (k > 1 && heap[k/2] < heap[k]) {
+        while (k > 1 && heap[k / 2] < heap[k]) {
             int temp = heap[k];
-            heap[k] = heap[k/2];
-            heap[k/2] = temp;
+            heap[k] = heap[k / 2];
+            heap[k / 2] = temp;
             k = k / 2;
         }
     }
@@ -85,12 +85,12 @@ public class MaxPriorityQueue {
      */
     public void Skim(int size) {
         int k = 1;
-        while (k < size && heap[2*k] != null) {
+        while (k < size && heap[2 * k] != null) {
             // get child nodes for kth level
-            int leftChild = heap[2*k], rightChild = heap[2*k+1];
+            int leftChild = heap[2 * k], rightChild = heap[2 * k + 1];
             // swap parent with max of children, if parent < maxChild
             int maxChild = (leftChild > rightChild) ? leftChild : rightChild;
-            int maxChildIndex = (leftChild > rightChild) ? 2*k : 2*k+1;
+            int maxChildIndex = (leftChild > rightChild) ? 2 * k : 2 * k + 1;
             if (heap[k] < maxChild) {
                 int temp = heap[k];
                 heap[k] = heap[maxChildIndex];
@@ -99,20 +99,21 @@ public class MaxPriorityQueue {
             k++;
         }
     }
+
     public int GetHeapMin() {
         int min = heap[1];
-        for(int i = 2; i < heap.length; i++) {
+        for (int i = 2; i < heap.length; i++) {
             min = heap[i];
-            if (heap[i+1] == null) break;
+            if (heap[i + 1] == null) break;
         }
         return min;
     }
 
     public int GetHeapMinIndex() {
         int minIndex = 1;
-        for(int i = 2; i < heap.length; i++) {
+        for (int i = 2; i < heap.length; i++) {
             minIndex = i;
-            if (heap[i+1] == null) break;
+            if (heap[i + 1] == null) break;
         }
         return minIndex;
     }
@@ -120,7 +121,7 @@ public class MaxPriorityQueue {
     public static void displayArray(Integer[] arr) {
         for (int i = 0; i <= arr.length; i++) {
             if (arr[i] != null) System.out.print(arr[i] + ", ");
-            if (arr[i+1] == null) break;
+            if (arr[i + 1] == null) break;
         }
         System.out.println();
     }

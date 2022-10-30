@@ -476,7 +476,7 @@ public class SinglyLinkedList {
 
         ListNode a = list;
         ListNode b = ReverseLinkedList(CreateLinkedList());
-        updatedList = AddTwoSinglyLinkedLists(a, b);
-        DisplayLinkedList(ReverseLinkedList(updatedList));
+        // updatedList = AddTwoSinglyLinkedLists(a, b);
+        DisplayLinkedList(b);
     }
 }

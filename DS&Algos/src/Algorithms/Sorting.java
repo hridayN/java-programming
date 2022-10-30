@@ -2,7 +2,7 @@ package Algorithms;
 
 public class Sorting {
     public static void main(String[] args) {
-        int[] arr = {7, 8, 3, 1, 2};
+        //int[] arr = {7, 8, 3, 1, 2};
         /*// arr = bubbleSort(arr);
         // arr = bubbleSortUsingWhile(arr);*/
         /*// arr = selectionSort(arr);
@@ -16,6 +16,14 @@ public class Sorting {
         swap(a, b);
         System.out.println("After swapping, a: " + a + ", b: " + b);*/
         // quickSort(arr, 0, arr.length-1);
+        /*int[] temp = new int[arr.length];
+        mergeSortDivide(arr, temp, 0, arr.length - 1);*/
+        /*int[] arr = {9, -3, 2, 5, 9, 6, 8, -6, 1, 8};
+        //System.out.println(quickSort_Partition(arr, 0, arr.length - 1));
+        quickSort_Sorting(arr, 0, arr.length - 1);*/
+
+        int[] arr = { -4, -1, 0, 3, 10 };
+        sortQuaresArray(arr);
         print(arr);
     }
 
@@ -234,10 +242,10 @@ public class Sorting {
 
     public static int[] selectionSortUsingWhile(int[] arr) {
         int counter = 0;
-        while (counter < arr.length-1) {
+        while (counter < arr.length - 1) {
             int smallestValueIndex = counter, swaps = 0, innerCounter = counter + 1;
             while (innerCounter < arr.length) {
-                if(arr[smallestValueIndex] > arr[innerCounter]) {
+                if (arr[smallestValueIndex] > arr[innerCounter]) {
                     smallestValueIndex = innerCounter;
                 }
                 if (smallestValueIndex != counter) {
@@ -257,7 +265,7 @@ public class Sorting {
     public static int[] insertionSortUsingWhile(int[] arr) {
         int counter = 1;
         while (counter < arr.length) {
-            int gapIndex = counter, temp = arr[counter], innerCounter = counter-1;
+            int gapIndex = counter, temp = arr[counter], innerCounter = counter - 1;
             while (innerCounter >= 0) {
                 if (arr[innerCounter] > temp) {
                     arr[innerCounter + 1] = arr[innerCounter];
@@ -269,5 +277,82 @@ public class Sorting {
             counter++;
         }
         return arr;
+    }
+
+    /*
+     * This method is the Divide part of our Divide & Conquer approach
+     * Here, we'll keep dividing the array till it contains only 1 element.
+     * Then, in the Conquer part, we'll keep Sorting & Merging these unsorted parts
+     */
+    public static void mergeSortDivide(int[] arr, int[] temp, int low, int high) {
+        if (low < high) {
+            int mid = low + (high - low) / 2;
+            mergeSortDivide(arr, temp, low, mid);
+            mergeSortDivide(arr, temp, mid + 1, high);
+            mergeSortConquer(arr, temp, low, mid, high);
+        }
+    }
+
+    public static void mergeSortConquer(int[] arr, int[] temp, int low, int mid, int high) {
+        // Copy the contents from arr to temp
+        for (int i = low; i <= high; i++) {
+            temp[i] = arr[i];
+        }
+
+        int i = low; // traverse left sorted sub-array
+        int j = mid + 1; // traverse right sorted sub-array
+        int k = low; // will merge both sorted arrays into main array(arr)
+
+        // Update value from temp to original arr in correct order
+        while (i <= low && j <= high) {
+            if (temp[i] <= temp[j]) {
+                arr[k] = temp[i];
+                i++;
+            } else {
+                arr[k] = temp[j];
+                j++;
+            }
+            k++;
+        }
+
+        // Add remaining elements from temp to arr
+        while (i <= mid) {
+            arr[k] = temp[i];
+            k++;
+            i++;
+        }
+    }
+
+    public static int quickSort_Partition(int[] arr, int low, int high) {
+        int pivot = arr[high], i = low, j = low;
+        while (i <= high) {
+            if (arr[i] <= pivot) {
+                swapInArr(arr, i, j);
+                j++;
+            }
+            i++;
+        }
+        return j - 1;
+    }
+
+    public static void quickSort_Sorting(int[] arr, int low, int high) {
+        if (low < high) {
+            int p = quickSort_Partition(arr, low, high);
+            quickSort_Sorting(arr, low, p-1);
+            quickSort_Sorting(arr, p+1, high);
+        }
+    }
+    public static void swapInArr(int[] arr, int sourceIndex, int destinationIndex) {
+        int temp = arr[sourceIndex];
+        arr[sourceIndex] = arr[destinationIndex];
+        arr[destinationIndex] = temp;
+    }
+
+    public static void sortQuaresArray(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] *= arr[i];
+        }
+
+        quickSort_Sorting(arr, 0, arr.length - 1);
     }
 }

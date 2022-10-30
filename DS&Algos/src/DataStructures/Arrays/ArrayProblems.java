@@ -16,8 +16,14 @@ public class ArrayProblems {
         // System.out.println(String.format("%d is missing" , findMissingNumberInGivenRangeByNaturalNumberSum(new int[] { 1, 2, 3, 4 }, 1, 5)));
         /*int[] arr = {4, 7, 3, 4, 8, 1};
         displayArray(findNextGreaterElementToRight(arr));*/
-        int[] a1 = {1, 2, 5, 6}, a2 = {3, 4};
-        displayArray(mergeTwoSortedArrays(a1, a2));
+        /*int[] a1 = {1, 2, 5, 6}, a2 = {3, 4};
+        displayArray(mergeTwoSortedArrays(a1, a2));*/
+
+        /*int[] arr = {2, 1, 0, 1, 0, 2};
+        displayArray(sortArrayHavingGivenValuesEnhanced(arr));*/
+        int[] arr = { 2, 3, 5, 6, 8, 9 };
+        arrangeArrayInMaxMinForm(arr);
+        displayArray(arr);
     }
 
     public static void displayArray(int[] arr) {
@@ -280,5 +286,81 @@ public class ArrayProblems {
             }
         }
         return arr;
+    }
+
+    public static int[] sortArrayHavingGivenValues(int[] arr) {
+        int zerosCount = 0, onesCount = 0, twosCount = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == 0) zerosCount++;
+            else if (arr[i] == 1) onesCount++;
+            else twosCount++;
+        }
+        int counter = 0;
+        while (zerosCount > 0) {
+            arr[counter] = 0;
+            counter++;
+            zerosCount--;
+        }
+
+        while (onesCount > 0) {
+            arr[counter] = 1;
+            counter++;
+            onesCount--;
+        }
+
+        while (twosCount > 0) {
+            arr[counter] = 2;
+            counter++;
+            twosCount--;
+        }
+
+        return arr;
+    }
+
+    public static int[] sortArrayHavingGivenValuesEnhanced(int[] arr) {
+        int i = 0, j = 0, k = arr.length - 1;
+        while (i <= k) {
+            switch (arr[i]) {
+                case 0:
+                    if (arr[i] != arr[j]) swapValuesInArrayAtGivenIndex(arr, i, j);
+                    i++;
+                    j++;
+                    break;
+                case 1:
+                    i++;
+                    break;
+                case 2:
+                    if (arr[i] != arr[k]) swapValuesInArrayAtGivenIndex(arr, i, k);
+                    k--;
+                    break;
+            }
+        }
+
+        System.out.println(String.format("(i: %d, j: %d, k: %d)", i, j, k));
+        return arr;
+    }
+
+    public static void swapValuesInArrayAtGivenIndex(int[] arr, int sourceIndex, int destinationIndex) {
+        int temp = arr[sourceIndex];
+        arr[sourceIndex] = arr[destinationIndex];
+        arr[destinationIndex] = temp;
+    }
+
+    public static void arrangeArrayInMaxMinForm(int[] arr) {
+        int minIndex = 0, maxIndex = arr.length-1;
+        int max = arr[maxIndex] + 1;
+        for (int i = 0; i < arr.length; i++) {
+            if (i % 2 == 0) {
+                arr[i] += (arr[maxIndex] % max) * max;
+                maxIndex--;
+            } else {
+                arr[i] += (arr[minIndex] % max) * max;
+                minIndex++;
+            }
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] /= max;
+        }
     }
 }
