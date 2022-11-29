@@ -21,7 +21,7 @@ public class ArrayProblems {
 
         /*int[] arr = {2, 1, 0, 1, 0, 2};
         displayArray(sortArrayHavingGivenValuesEnhanced(arr));*/
-        int[] arr = { 2, 3, 5, 6, 8, 9 };
+        int[] arr = {2, 3, 5, 6, 8, 9};
         arrangeArrayInMaxMinForm(arr);
         displayArray(arr);
     }
@@ -36,14 +36,14 @@ public class ArrayProblems {
     public static void findSumPair(int[] arr, int sum) {
         boolean pairFound = false;
         int pass = 1;
-        for (int i = 0; i <= arr.length-1; i++) {
+        for (int i = 0; i <= arr.length - 1; i++) {
             System.out.println(String.format("Pass %d", pass++));
-            for (int j = i+1; j <= arr.length-1; j++) {
+            for (int j = i + 1; j <= arr.length - 1; j++) {
                 System.out.println(String.format("Checking (%d + %d)", arr[i], arr[j]));
-               if (arr[i] + arr[j] == sum) {
-                   System.out.println(String.format("Pair found: (%d, %d)", arr[i], arr[j]));
-                   pairFound = true;
-               }
+                if (arr[i] + arr[j] == sum) {
+                    System.out.println(String.format("Pair found: (%d, %d)", arr[i], arr[j]));
+                    pairFound = true;
+                }
             }
             if (i == arr.length - 2 && !pairFound) {
                 break;
@@ -66,7 +66,7 @@ public class ArrayProblems {
         }
     }
 
-    public static void findZeroSumWithSpecifiedIndex(int[] arr, int startIndex,  int endIndex) {
+    public static void findZeroSumWithSpecifiedIndex(int[] arr, int startIndex, int endIndex) {
         int sum = 0;
         for (int i = startIndex; i <= endIndex; i++) {
             sum += arr[i];
@@ -82,32 +82,32 @@ public class ArrayProblems {
     }
 
     // Function for finding maximum and value pair
-    public static void multiply (int arr[], int n) {
-        int leftSum = 0, rightSum = 0, sumProduct = 0, medianIndex = n/2;
-        for (int i =0; i < medianIndex; i++) {
+    public static void multiply(int arr[], int n) {
+        int leftSum = 0, rightSum = 0, sumProduct = 0, medianIndex = n / 2;
+        for (int i = 0; i < medianIndex; i++) {
             leftSum += arr[i];
         }
-        for (int i = medianIndex; i <= n-1; i++) {
+        for (int i = medianIndex; i <= n - 1; i++) {
             rightSum += arr[i];
         }
         sumProduct = leftSum * rightSum;
         System.out.println(String.format("medianIndex: %d, LeftSum: %d, RightSum: %d, Product: %d", medianIndex, leftSum, rightSum, sumProduct));
     }
 
-    public static long find_multiplication (int arr[], int brr[], int n, int m) {
+    public static long find_multiplication(int arr[], int brr[], int n, int m) {
         int maxFromFirst = arr[0], minFromSecond = brr[0], product = 1;
-        for(int i = 0; i <= arr.length - 1; i++){
+        for (int i = 0; i <= arr.length - 1; i++) {
             if (maxFromFirst < arr[i]) {
                 maxFromFirst = arr[i];
             }
         }
-        for (int j =0; j <= brr.length - 1; j++) {
+        for (int j = 0; j <= brr.length - 1; j++) {
             if (minFromSecond > brr[j]) {
                 minFromSecond = brr[j];
             }
         }
         product = maxFromFirst * minFromSecond;
-        System.out.println("Product: "+ product);
+        System.out.println("Product: " + product);
         return product;
     }
 
@@ -124,7 +124,7 @@ public class ArrayProblems {
     public static int[] reverseArray(int[] arr) {
         int[] result = new int[arr.length];
 
-        int count = 0, mainArrayIndex = arr.length-1;
+        int count = 0, mainArrayIndex = arr.length - 1;
         while (count < arr.length) {
             result[count] = arr[mainArrayIndex];
             mainArrayIndex--;
@@ -135,7 +135,7 @@ public class ArrayProblems {
 
     public static int getMinimumValue(int arr[]) {
         int min = arr[0];
-        for(int num : arr) {
+        for (int num : arr) {
             if (num < min) min = num;
         }
         return min;
@@ -159,13 +159,13 @@ public class ArrayProblems {
 
     public static int[] moveAll0sToEnd(int[] arr) {
         int passThrough = 0;
-        for(int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) {
             ++passThrough;
-            for (int j = 0; j < arr.length-passThrough; j++) {
+            for (int j = 0; j < arr.length - passThrough; j++) {
                 if (arr[j] == 0) {
                     int temp = arr[j];
-                    arr[j] = arr[j+1];
-                    arr[j+1] = temp;
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
                 }
             }
         }
@@ -175,7 +175,7 @@ public class ArrayProblems {
     public static int[] resizeArrayToGivenCapacity(int[] arr, int capacity) {
         int[] newArr = new int[capacity];
         int iterateTill = (capacity < arr.length) ? capacity : arr.length;
-        for(int i = 0; i < iterateTill; i++) {
+        for (int i = 0; i < iterateTill; i++) {
             //if (i < capacity)
             newArr[i] = arr[i];
         }
@@ -195,9 +195,9 @@ public class ArrayProblems {
     }
 
     public static int findElementIndex(int[] arr, int num) {
-        int leftIndex = 0, rightIndex = arr.length-1, mid = 0;
+        int leftIndex = 0, rightIndex = arr.length - 1, mid = 0;
         while (leftIndex <= rightIndex) {
-            mid = (leftIndex + rightIndex)/2;
+            mid = (leftIndex + rightIndex) / 2;
             if (num < arr[mid]) {
                 rightIndex = mid - 1;
             } else if (num > arr[mid]) {
@@ -212,8 +212,8 @@ public class ArrayProblems {
     }
 
     public static int findMissingNumberInGivenRangeByNaturalNumberSum(int[] arr, int startRange, int endRange) {
-        int totalNumbers = endRange-startRange+1, missingNumnber = -1;
-        int sumOfRange = (totalNumbers * (totalNumbers+1))/2, actualSum = getArrayElementsSum(arr);
+        int totalNumbers = endRange - startRange + 1, missingNumnber = -1;
+        int sumOfRange = (totalNumbers * (totalNumbers + 1)) / 2, actualSum = getArrayElementsSum(arr);
         missingNumnber = sumOfRange - actualSum;
         return missingNumnber;
     }
@@ -229,11 +229,11 @@ public class ArrayProblems {
     /*Task is to find current's greater element towards it's right, else store -1*/
     public static int[] findNextGreaterElementToRight(int[] arr) {
         // Iterate the outer loop only till last-1th element
-        for (int i = 0; i < arr.length-1; i++) {
+        for (int i = 0; i < arr.length - 1; i++) {
             int currentElement = arr[i];
             // System.out.print(String.format("[%d, (", arr[i]));
             // Start inner loop from i+1th element
-            for (int j = i+1; j < arr.length; j++) {
+            for (int j = i + 1; j < arr.length; j++) {
                 int nextElement = arr[j];
                 // System.out.print(String.format("%d, ", arr[j]));
                 // System.out.print(String.format("Comparing (%d, %d)", currentElement, nextElement));
@@ -242,14 +242,14 @@ public class ArrayProblems {
                     break;
                 }
                 // if we're comparing last-1th element, set -1 to arr[i]
-                if (j == arr.length -1) {
+                if (j == arr.length - 1) {
                     arr[i] = -1;
                 }
             }
             //System.out.println(")]");
             System.out.println();
         }
-        arr[arr.length-1] = -1;
+        arr[arr.length - 1] = -1;
         return arr;
     }
 
@@ -347,8 +347,9 @@ public class ArrayProblems {
     }
 
     public static void arrangeArrayInMaxMinForm(int[] arr) {
-        int minIndex = 0, maxIndex = arr.length-1;
-        int max = arr[maxIndex] + 1;
+        int minIndex = 0;   // first index
+        int maxIndex = arr.length - 1;  // last index
+        int max = arr[maxIndex] + 1;    // last element + 1
         for (int i = 0; i < arr.length; i++) {
             if (i % 2 == 0) {
                 arr[i] += (arr[maxIndex] % max) * max;

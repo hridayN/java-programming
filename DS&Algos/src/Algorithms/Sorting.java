@@ -1,5 +1,7 @@
 package Algorithms;
 
+import static Basics.Arrays.swapInArray;
+
 public class Sorting {
     public static void main(String[] args) {
         //int[] arr = {7, 8, 3, 1, 2};
@@ -22,7 +24,7 @@ public class Sorting {
         //System.out.println(quickSort_Partition(arr, 0, arr.length - 1));
         quickSort_Sorting(arr, 0, arr.length - 1);*/
 
-        int[] arr = { -4, -1, 0, 3, 10 };
+        int[] arr = {-4, -1, 0, 3, 10};
         sortQuaresArray(arr);
         print(arr);
     }
@@ -327,7 +329,7 @@ public class Sorting {
         int pivot = arr[high], i = low, j = low;
         while (i <= high) {
             if (arr[i] <= pivot) {
-                swapInArr(arr, i, j);
+                swapInArray(arr, i, j);
                 j++;
             }
             i++;
@@ -335,17 +337,13 @@ public class Sorting {
         return j - 1;
     }
 
+    /*Driver method for Quick sort*/
     public static void quickSort_Sorting(int[] arr, int low, int high) {
         if (low < high) {
             int p = quickSort_Partition(arr, low, high);
-            quickSort_Sorting(arr, low, p-1);
-            quickSort_Sorting(arr, p+1, high);
+            quickSort_Sorting(arr, low, p - 1);
+            quickSort_Sorting(arr, p + 1, high);
         }
-    }
-    public static void swapInArr(int[] arr, int sourceIndex, int destinationIndex) {
-        int temp = arr[sourceIndex];
-        arr[sourceIndex] = arr[destinationIndex];
-        arr[destinationIndex] = temp;
     }
 
     public static void sortQuaresArray(int[] arr) {

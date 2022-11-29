@@ -19,12 +19,23 @@ public class Matrix {
         return matrix;
     }
 
-    public static void displayMatrix(int[][] matrix) {
+    public static void displayMatrixWithFullInfo(int[][] matrix) {
         int rows = matrix.length;
         int cols = matrix[rows-1].length;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 System.out.print(String.format("[(%d, %d): %d] ", i, j, matrix[i][j]));
+            }
+            System.out.println();
+        }
+    }
+
+    public static void displayMatrix(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[rows-1].length;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print(String.format("%d ", matrix[i][j]));
             }
             System.out.println();
         }
