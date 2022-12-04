@@ -2,21 +2,22 @@ package DataStructures.Arrays;
 
 public class Rotation {
     public static void main(String[] args) {
-        int[] arr = {8, 3, 1, 2};
+        int[] arr = {1, 5, 7, 1};
         //arr = reverseRotate(arr, 2, arr.length);
         /*printArray(arr);*/
 
         //System.out.println("min: " + findMinElement(arr));
         //int minElementIndex = findMinElementIndexInSortedRotated(arr);
         //System.out.println("minElementIndex: " + minElementIndex);
-        //System.out.println("Sum exists: " + findIfPairExistsForGivenSum(arr, -1));
+        // System.out.println("Sum exists: " + findIfPairExistsForGivenSum(arr, 3));
         //System.out.println("Sum : " + sumOfProductOfIndexAndElement(arr));
         //arr = singleRotation(arr);
         //printArray(arr);
-        long start = System.nanoTime();
+        /*long start = System.nanoTime();
         System.out.println("Max: " + findMaxSumOfProductOfIndexAndElementWithAllRotations(arr));
         long end = System.nanoTime();
-        System.out.println("Total time: " + (end - start));
+        System.out.println("Total time: " + (end - start));*/
+        System.out.println(String.format("Pairs: %d", countPairsForGivenSum(arr, arr.length, 6)));
     }
 
     public static void printArray(int[] arr) {
@@ -115,15 +116,36 @@ public class Rotation {
         int counter = 0;
         for (int i = 0; i < arr.length; i++) {
             for (int j = i+1; j < arr.length; j++) {
-                //System.out.println("Checked pair: (" + arr[i] + ", " + arr[j] + ")");
+                System.out.println("Checked pair: (" + arr[i] + ", " + arr[j] + ")");
                 counter++;
                 if (arr[i] + arr[j] == sum) {
-                    return true;
+                    // return true;
                 }
             }
         }
-        System.out.println("Counter: " + counter);
+        // System.out.println("Counter: " + counter);
         return false;
+    }
+
+    /*K: Given sum,
+    * n: Number of elements*/
+    public static int countPairsForGivenSum(int[] arr, int n, int k) {
+        int count = 0;
+        /*for (int i = 0; i < n; i++) {
+            for (int j = i+1; j < n; j++) {
+                System.out.println("Checked pair: (" + arr[i] + ", " + arr[j] + ")");
+                if (arr[i] + arr[j] == k) {
+                    count++;
+                }
+            }
+        }*/
+        for (int i = 0; i < n; i++) {
+            int lookFor = k - arr[i];
+            for (int j = i+1; j < n; j++) {
+                if (arr[j] == lookFor) count++;
+            }
+        }
+        return count;
     }
 
     public static int sumOfProductOfIndexAndElement(int[] arr) {

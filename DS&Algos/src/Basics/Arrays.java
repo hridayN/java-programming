@@ -10,8 +10,12 @@ public class Arrays {
         System.out.println(String.format("Expected: %d, actual: %d",  0, peakElement(arr1, arr1.length)));
         int[] arr2 = {2, 1, 5};
         System.out.println(String.format("Expected: %d, actual: %d",  2, peakElement(arr2, arr2.length)));*/
-        int[] arr = {7, 10, 4, 3, 20, 15};
-        System.out.println(String.format("%dth smallest element: %d", 3, kthSmallest(arr, 0, arr.length-1, 2)));
+        /*int[] arr = {7, 10, 4, 3, 20, 15};
+        System.out.println(String.format("%dth smallest element: %d", 3, kthSmallest(arr, 0, arr.length-1, 2)));*/
+
+        /*int[] arr = {1, 0, 3, 4, 1, 4, 1, 0, 1};
+        int num = 0;
+        System.out.println(String.format("%d occurs in arr %d times", num, countIntegerOccurrence(arr, num)));*/
     }
 
     public static void printArray(int[] arr) {
@@ -46,5 +50,13 @@ public class Arrays {
         int temp = arr[sourceIndex];
         arr[sourceIndex] = arr[destinationIndex];
         arr[destinationIndex] = temp;
+    }
+
+    public static int countIntegerOccurrence(int[] arr, int num) {
+        int count = 0;
+        for (int i : arr) {
+            if (i == num) count++;
+        }
+        return count;
     }
 }

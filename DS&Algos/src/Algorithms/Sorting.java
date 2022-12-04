@@ -337,7 +337,7 @@ public class Sorting {
         return j - 1;
     }
 
-    /*Driver method for Quick sort*/
+    /*Driver method for Quick sort, call this for Sorting*/
     public static void quickSort_Sorting(int[] arr, int low, int high) {
         if (low < high) {
             int p = quickSort_Partition(arr, low, high);
