@@ -2,14 +2,14 @@ package DataStructures.Arrays;
 
 public class Rotation {
     public static void main(String[] args) {
-        int[] arr = {1, 5, 7, 1};
+        int[] arr = {-2, 2, 6, -2, 2, -6, 3};
         //arr = reverseRotate(arr, 2, arr.length);
         /*printArray(arr);*/
 
         //System.out.println("min: " + findMinElement(arr));
         //int minElementIndex = findMinElementIndexInSortedRotated(arr);
         //System.out.println("minElementIndex: " + minElementIndex);
-        // System.out.println("Sum exists: " + findIfPairExistsForGivenSum(arr, 3));
+        System.out.println(findIfPairExistsForGivenSum(arr, 0));
         //System.out.println("Sum : " + sumOfProductOfIndexAndElement(arr));
         //arr = singleRotation(arr);
         //printArray(arr);
@@ -17,7 +17,7 @@ public class Rotation {
         System.out.println("Max: " + findMaxSumOfProductOfIndexAndElementWithAllRotations(arr));
         long end = System.nanoTime();
         System.out.println("Total time: " + (end - start));*/
-        System.out.println(String.format("Pairs: %d", countPairsForGivenSum(arr, arr.length, 6)));
+        //System.out.println(String.format("Pairs: %d", countPairsForGivenSum(arr, arr.length, 6)));
     }
 
     public static void printArray(int[] arr) {
@@ -33,12 +33,12 @@ public class Rotation {
 
         // set first d elements
         for (int i = 0; i < d; i++) {
-            result[n-d+i] = arr[i];
+            result[n - d + i] = arr[i];
         }
 
         // set remaining (n-d) elements
         for (int i = d; i < n; i++) {
-            result[i-d] = arr[i];
+            result[i - d] = arr[i];
         }
         return result;
     }
@@ -47,11 +47,11 @@ public class Rotation {
         int[] result = new int[arr.length];
 
         //set last element of input array as 1st element of result
-        result[0] = arr[arr.length-1];
+        result[0] = arr[arr.length - 1];
 
         // set remaining elements
-        for (int i = 0; i < arr.length-1; i++) {
-            result[i+1] = arr[i];
+        for (int i = 0; i < arr.length - 1; i++) {
+            result[i + 1] = arr[i];
         }
 
         return result;
@@ -101,9 +101,9 @@ public class Rotation {
         int counter = 0;
         for (int i = 0; i < arr.length; i++) {
             counter++;
-            if (i+1 != arr.length && arr[i] > arr[i+1]) {
+            if (i + 1 != arr.length && arr[i] > arr[i + 1]) {
                 // desired element's index
-                return i+1;
+                return i + 1;
             }
         }
         System.out.println("iterated " + counter + " times");
@@ -113,22 +113,25 @@ public class Rotation {
     }
 
     public static boolean findIfPairExistsForGivenSum(int[] arr, int sum) {
-        int counter = 0;
+        int counter = 0, pairs = 0;
         for (int i = 0; i < arr.length; i++) {
-            for (int j = i+1; j < arr.length; j++) {
-                System.out.println("Checked pair: (" + arr[i] + ", " + arr[j] + ")");
+            for (int j = i + 1; j < arr.length; j++) {
+                // System.out.println("Checked pair: (" + arr[i] + ", " + arr[j] + ")");
                 counter++;
                 if (arr[i] + arr[j] == sum) {
-                    // return true;
+                    //return true;
+                    System.out.println("Pair: (" + arr[i] + ", " + arr[j] + ")");
+                    pairs++;
                 }
             }
         }
         // System.out.println("Counter: " + counter);
+        System.out.println("Total pairs: " + pairs);
         return false;
     }
 
     /*K: Given sum,
-    * n: Number of elements*/
+     * n: Number of elements*/
     public static int countPairsForGivenSum(int[] arr, int n, int k) {
         int count = 0;
         /*for (int i = 0; i < n; i++) {
@@ -141,7 +144,7 @@ public class Rotation {
         }*/
         for (int i = 0; i < n; i++) {
             int lookFor = k - arr[i];
-            for (int j = i+1; j < n; j++) {
+            for (int j = i + 1; j < n; j++) {
                 if (arr[j] == lookFor) count++;
             }
         }
@@ -151,14 +154,14 @@ public class Rotation {
     public static int sumOfProductOfIndexAndElement(int[] arr) {
         int sum = 0;
         for (int i = 0; i < arr.length; i++) {
-            sum += i*arr[i];
+            sum += i * arr[i];
         }
         return sum;
     }
 
     public static int findMaxSumOfProductOfIndexAndElementWithAllRotations(int[] arr) {
         int[] sums = new int[arr.length];
-        for(int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) {
             sums[i] = sumOfProductOfIndexAndElement(arr);
             arr = singleRotation(arr);
         }

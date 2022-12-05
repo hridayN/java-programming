@@ -66,8 +66,12 @@ public class ArrayProblems {
         /*int[] arr = {1, 4, 5};
         System.out.println(String.format("Most repeated element: %d", mostRepeatedElement(arr)));*/
 
-        int[] a1 = {2, 6, 1, 2}, a2 = {1, 2, 3, 4, 2};
-        System.out.println(getIntersection(a1, a2));
+        /*int[] a1 = {2, 6, 1, 2}, a2 = {1, 2, 3, 4, 2};
+        System.out.println(getIntersection(a1, a2));*/
+
+        int[] arr = {-2, 2, 6, -2, 2, -6, 3};
+        int sum = 0;
+        System.out.println(String.format("%d Pairs exists, summing to %d", GetPairsSummingToGivenNumberUsingHashMap(arr, arr.length, sum), sum));
     }
 
     public static void displayArray(int[] arr) {
@@ -638,6 +642,11 @@ public class ArrayProblems {
         return mostRepeatedElement;
     }
 
+    /*
+    * Approach 1: Create a hashmap and add both array's elements and their frequencies.
+    * For every 2 frequencies, push element into an List
+    * Approach 2: Create a hashmap and add 1st array's elements into it. Now for every array element, if it's present into
+    * map and frequency is more than 0, add it to resulting list*/
     public static ArrayList<Integer> getIntersection(int[] a1, int[] a2) {
         ArrayList<Integer> interSection = new ArrayList<>();
         HashMap<Integer, Integer> hashMap = new HashMap<>();
@@ -650,6 +659,17 @@ public class ArrayProblems {
             }
         }
 
+        for(int i : a2) {
+            if (hashMap.containsKey(i)) {
+                int frequency = hashMap.get(i);
+                if (frequency > 0) {
+                    interSection.add(i);
+                    hashMap.put(i, frequency-1);
+                }
+            }
+        }
+
+        /*  // Approach 1
         // Add a2's elements to Hashmap
         for(int i : a2) {
             if (hashMap.containsKey(i)) {
@@ -659,8 +679,9 @@ public class ArrayProblems {
             }
         }
 
-        /*// new hashmap, to keep track how many times it should be there in intersection
-        // HashMap<Integer, Integer> occurenceMap = new HashMap<>();*/
+
+        // new hashmap, to keep track how many times it should be there in intersection
+        // HashMap<Integer, Integer> occurenceMap = new HashMap<>();
         if (hashMap.size() > 0) {
             Set<Integer> keys = hashMap.keySet();
             for(int key: keys) {
@@ -673,13 +694,14 @@ public class ArrayProblems {
                     interSection.add(key);
                 }
 
-                /*if (value > 1) {
+                if (value > 1) {
                     // Add the key to new hashmap, to keep track how many times it should be there in intersection
                     occurenceMap.put(key, value/2);
                 }
-                // System.out.print(String.format("(Key: %d, Value: %d)", key, value));*/
+                // System.out.print(String.format("(Key: %d, Value: %d)", key, value));
             }
         }
+        */
 
         /*if (occurenceMap.size() > 0) {
             Set<Integer> keys = occurenceMap.keySet();
@@ -691,5 +713,46 @@ public class ArrayProblems {
             }
         }*/
         return interSection;
+    }
+
+    public static int GetPairsSummingToGivenNumber(int[] arr, int n, int sum) {
+        int counter = 0, pairs = 0;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i+1; j < arr.length; j++) {
+                //System.out.println("Checked pair: (" + arr[i] + ", " + arr[j] + ")");
+                //counter++;
+                if (arr[i] + arr[j] == sum) {
+                    pairs++;
+                }
+            }
+        }
+        // System.out.println("Counter: " + counter);
+        return pairs;
+    }
+
+    public static int GetPairsSummingToGivenNumberUsingHashMap(int[] arr, int n, int sum) {
+        int pairs = 0;
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        // -2, 2, 6, -2, 2, -6, 3
+        // -2, 2, 6, -2, 2, -6, 3
+        for (int i : arr) {
+            int counterPart = sum - i;
+            if (hashMap.get(counterPart) != null && hashMap.get(counterPart) > 0) {
+                int frequency = (hashMap.get(i) == null) ? 1 : hashMap.get(i) + 1;
+                hashMap.put(i, frequency);
+                pairs += hashMap.get(counterPart);
+                System.out.println(String.format("Pair: (%d, %d)", i, counterPart));
+            } else {
+                hashMap.put(i, 1);
+            }
+
+            /*int frequency = hashMap.get(i);
+            frequency = (frequency > 0) ? frequency++ : frequency;
+            hashMap.put(i, frequency);
+
+            int counterPartFrequency = hashMap.get(counterPart);*/
+
+        }
+        return pairs;
     }
 }
