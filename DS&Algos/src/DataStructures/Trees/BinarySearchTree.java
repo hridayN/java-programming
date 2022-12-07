@@ -1,7 +1,7 @@
 package DataStructures.Trees;
 
 public class BinarySearchTree {
-    private TreeNode root;
+    private TreeNode_Old root;
     public BinarySearchTree() {
         this.root = null;
     }
@@ -15,7 +15,7 @@ public class BinarySearchTree {
         //System.out.println();
 
         bst.root = bst.InsertNode(bst.root, 3);
-        TreeNode.DisplayTreeInOrder(bst.root);
+        TreeNode_Old.DisplayTreeInOrder(bst.root);
         System.out.println();
         int searchValue = 7;
         bst.root = bst.SearchNode(bst.root, searchValue);
@@ -24,9 +24,9 @@ public class BinarySearchTree {
         System.out.println(String.format("%d %s found", searchValue, str));
     }
 
-    public TreeNode InsertNode(TreeNode root, int value) {
+    public TreeNode_Old InsertNode(TreeNode_Old root, int value) {
         if (root == null) {
-            root = new TreeNode(value);
+            root = new TreeNode_Old(value);
             return root;
         }
 
@@ -36,7 +36,7 @@ public class BinarySearchTree {
         return root;
     }
 
-    public TreeNode SearchNode(TreeNode root, int value) {
+    public TreeNode_Old SearchNode(TreeNode_Old root, int value) {
         if (root == null || (int)root.data == value) return root;
 
         if (value < (int)root.data) return SearchNode(root.left, value);

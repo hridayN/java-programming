@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class BinaryTree {
-    private TreeNode root;
+    private TreeNode_Old root;
     public BinaryTree() {
         this.root = null;
     }
@@ -20,13 +20,13 @@ public class BinaryTree {
     }
 
     public void createTree() {
-        TreeNode first = new TreeNode(1);
-        TreeNode second = new TreeNode(2);
-        TreeNode third = new TreeNode(3);
-        TreeNode fourth = new TreeNode(4);
-        TreeNode fifth = new TreeNode(5);
-        TreeNode sixth = new TreeNode(6);
-        TreeNode seventh = new TreeNode(7);
+        TreeNode_Old first = new TreeNode_Old(1);
+        TreeNode_Old second = new TreeNode_Old(2);
+        TreeNode_Old third = new TreeNode_Old(3);
+        TreeNode_Old fourth = new TreeNode_Old(4);
+        TreeNode_Old fifth = new TreeNode_Old(5);
+        TreeNode_Old sixth = new TreeNode_Old(6);
+        TreeNode_Old seventh = new TreeNode_Old(7);
 
         first.left = second;
         first.right = third;
@@ -38,7 +38,7 @@ public class BinaryTree {
         root = first;
     }
 
-    public void PreOrderTraversal(TreeNode root) {
+    public void PreOrderTraversal(TreeNode_Old root) {
         if (root == null) {
             return;
         }
@@ -47,7 +47,7 @@ public class BinaryTree {
         PreOrderTraversal(root.right);
     }
 
-    public void InOrderTraversal(TreeNode root) {
+    public void InOrderTraversal(TreeNode_Old root) {
         if (root == null) {
             return;
         }
@@ -56,7 +56,7 @@ public class BinaryTree {
         InOrderTraversal(root.right);
     }
 
-    public void PostOrderTraversal(TreeNode root) {
+    public void PostOrderTraversal(TreeNode_Old root) {
         if (root == null) {
             return;
         }
@@ -65,12 +65,12 @@ public class BinaryTree {
         System.out.print(String.format("%d --> ", root.data));
     }
 
-    public void LevelOrderTraversal(TreeNode root) {
+    public void LevelOrderTraversal(TreeNode_Old root) {
         if (root == null) return;
-        Queue<TreeNode> queue = new LinkedList<>();
+        Queue<TreeNode_Old> queue = new LinkedList<>();
         queue.offer(root);
         while (!queue.isEmpty()) {
-            TreeNode tempNode = queue.poll();
+            TreeNode_Old tempNode = queue.poll();
             System.out.print(tempNode.data + " --> ");
             if (tempNode.left != null) queue.offer(tempNode.left);
             if (tempNode.right != null) queue.offer(tempNode.right);
@@ -78,13 +78,13 @@ public class BinaryTree {
         }
     }
 
-    public int GetMaxInBinaryTree(TreeNode root) {
+    public int GetMaxInBinaryTree(TreeNode_Old root) {
         if (root == null) return -1;
         int max = (int)root.data;
-        Queue<TreeNode> queue = new LinkedList<>();
+        Queue<TreeNode_Old> queue = new LinkedList<>();
         queue.offer(root);
         while (!queue.isEmpty()) {
-            TreeNode tempNode = queue.poll();
+            TreeNode_Old tempNode = queue.poll();
             if (max < (int)tempNode.data) max = (int)tempNode.data;
             if (tempNode.left != null) queue.offer(tempNode.left);
             if (tempNode.right != null) queue.offer(tempNode.right);
