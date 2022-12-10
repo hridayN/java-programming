@@ -3,9 +3,16 @@ package DataStructures.HashMaps;
 import java.util.ArrayList;
 
 public class Map<K, V> {
+    // Collection of buckets(Each is a linked list, containing Key-Value pair and the information of next Key(if any)
     ArrayList<MapNode<K, V>> bucketsList;
-    private int keysCount, numberOfBuckets;     // keysCount: keeps count of no. of keys
 
+    /*keysCount: keeps count of no. of keys*/
+    private int keysCount;
+
+    /*numberOfBuckets: Number of items(MapNode) in bucketsList*/
+    private int numberOfBuckets;
+
+    /*Constructor*/
     public Map() {
         this.bucketsList = new ArrayList<>();
         this.numberOfBuckets = 20;  // by default, there will be 20 buckets
@@ -23,15 +30,19 @@ public class Map<K, V> {
         // Object's hashcode
         int hashCode = key.hashCode();
 
-        // Compression: hashCode modulo numberOfBuckets
+        // Compression: (hashCode modulo numberOfBuckets)
         int index = hashCode % numberOfBuckets;
         return index;
     }
 
+    /*1. Get bucket index of the key
+    * 2. Add key(if not exists)*/
     public void Insert(K key, V value) {
         int bucketIndex = getBucketIndex(key);
+
         MapNode<K, V> current = bucketsList.get(bucketIndex);
-        // Check if key exists at the given index, update it's value if exists
+
+        // Check if key exists at the given index, update its value if exists
         while (current != null) {
             if (current.key.equals(key)) {
                 current.value = value;
@@ -45,15 +56,18 @@ public class Map<K, V> {
         newNode.next = current;
         bucketsList.set(bucketIndex, newNode);
         keysCount++;
+
+        // Check if ReHashing is needed
         if (LoadFactor() > 0.7) {
             ReHash();
         }
     }
 
+    /*This function searches for the Key in the HashMap
+    * 1. Check if Key exists, by bucketIndex*/
     public MapNode SearchKey(K key) {
         MapNode<K, V> mapNode = null;
-        int bucketIndex = getBucketIndex(key);
-        MapNode<K, V> current = bucketsList.get(bucketIndex);
+        MapNode<K, V> current = GetNodeAtBucketIndex(key);
         while (current != null) {
             if (current.key.equals(key)) {
                 mapNode = current;
@@ -88,8 +102,7 @@ public class Map<K, V> {
     }
 
     public V GetValue(K key) {
-        int bucketIndex = getBucketIndex(key);
-        MapNode<K, V> current = bucketsList.get(bucketIndex);
+        MapNode<K, V> current = GetNodeAtBucketIndex(key);
         while (current != null) {
             if (current.key.equals(key)) {
                 return current.value;
@@ -119,7 +132,7 @@ public class Map<K, V> {
         this.keysCount = 0;
 
         // For each existing node, add it's key-value to newly resized list
-        for(MapNode<K, V> mapNode : temp) {
+        for (MapNode<K, V> mapNode : temp) {
             if (mapNode != null) {
                 K key = mapNode.key;
                 V value = mapNode.value;
@@ -128,5 +141,13 @@ public class Map<K, V> {
             }
         }
     }
+
+    /*REGION START: Private utility methods*/
+    private MapNode<K, V> GetNodeAtBucketIndex(K key) {
+        int bucketIndex = getBucketIndex(key);
+        MapNode<K, V> mapNode = bucketsList.get(bucketIndex);
+        return mapNode;
+    }
+    /*REGION ENDS*/
 }
 

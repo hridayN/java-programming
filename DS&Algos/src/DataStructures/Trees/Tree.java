@@ -6,29 +6,29 @@ import java.util.*;
 
 public class Tree<T> {
     ArrayList<TreeNode<T>> tree;
-
+    private Scanner scanner;
     public Tree() {
         this.tree = new ArrayList<>();
+        this.scanner = new Scanner(System.in);
     }
 
     // This method will take tree's nodes input from user and return the tree root
     /*Basic idea is to fetch input for all subtrees, one by one, and link them to root node*/
     public TreeNode<Integer> GetTreeInput_DepthWise(int currentsParentNode, int noOfChild) {
-        Scanner scn = new Scanner(System.in);
         String text = (currentsParentNode == -1) ? "Enter root node value: " : String.format("Enter %dth child of %d: ", noOfChild, currentsParentNode);
         System.out.println(text);
-        int rootNodeData = scn.nextInt();
+        int rootNodeData = scanner.nextInt();
 
         // Create root node with provided value
         TreeNode<Integer> rootNode = new TreeNode<>(rootNodeData);
 
         System.out.println(String.format("Enter no. of children for: %d", rootNodeData));
-        int numOfRootNodeChildren = scn.nextInt();
+        int numOfRootNodeChildren = scanner.nextInt();
 
         for (int i = 0; i < numOfRootNodeChildren; i++) {
             // Get sub-tree's root node
             TreeNode<Integer> subTreeNode = GetTreeInput_DepthWise(rootNodeData, i + 1);
-            scn.close();
+            scanner.close();
             // Link this root-node to existing rootNode
             rootNode.children.add(subTreeNode);
         }
@@ -36,6 +36,7 @@ public class Tree<T> {
         return rootNode;
     }
 
+    /*Print tree nodes in Depth wise manner*/
     public void PrintTree_DepthWise(TreeNode<Integer> root) {
         StringBuilder s = new StringBuilder();
         s.append(String.format("[%d]: ", root.data));
@@ -46,17 +47,18 @@ public class Tree<T> {
         }
         System.out.println(s);
 
-        // Print every node's data
+        // Print every node's data, covering the whole depth for the current node
         for (int i = 0; i < root.children.size(); i++) {
             PrintTree_DepthWise(root.children.get(i));
         }
     }
 
+    /*Get tree input Level wise*/
     public TreeNode<Integer> GetTreeInput_LevelWise() {
         System.out.println("Enter root data: ");
-        Scanner scn = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        int rootData = scn.nextInt();
+        int rootData = scanner.nextInt();
         // Create root with provided value
         TreeNode<Integer> rootNode = new TreeNode<>(rootData);
 
@@ -68,11 +70,11 @@ public class Tree<T> {
             // Fetch pending node from queue
             TreeNode<Integer> frontNode = pendingNodes.Dequeue().data;
             System.out.println(String.format("Enter no. of children for %d: ", frontNode.data));
-            int numOfChildren = scn.nextInt();
+            int numOfChildren = scanner.nextInt();
             // Get children for frontNode
             for (int i = 0; i < numOfChildren; i++) {
                 System.out.println(String.format("Enter %dth child of %d", i + 1, frontNode.data));
-                int childNodeData = scn.nextInt();
+                int childNodeData = scanner.nextInt();
                 TreeNode<Integer> childNode = new TreeNode<>(childNodeData);
 
                 // Add child node to its parent(previously fetched node from Queue)
