@@ -4,6 +4,7 @@ import java.util.HashSet;
 
 public class RecursiveProblems {
     public static String[] keypadMap = {".", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+
     public static void main(String[] args) {
         //ShiftAllXToEndRecursive(new StringBuilder("xaxxa"));
         //ShiftAllXToEndIterative(new StringBuilder("xxhyxz"));
@@ -32,8 +33,16 @@ public class RecursiveProblems {
         /*HashSet<String> hashSet = new HashSet<>();
         System.out.println(String.format("All unique subsequences of %s are: ", str));
         PrintOnlyUniqueSubsequencesOfAString(str, "", 0, hashSet);*/
-        String str = "23";
-        PrintKeypadCombination(str, 0, "");
+        /*String str = "23";
+        PrintKeypadCombination(str, 0, "");*/
+        /*int n = 5;
+        System.out.println(String.format("Sum of first %d natural no.s is: %d", n, SumOfNNaturalNumbers(n)));*/
+        /*int n = 100, power = 10;
+        System.out.println(String.format("(%d^%d) = %.2e", n, power, GetPower(n, power)));*/
+        /*int n = 1;
+        System.out.println(String.format("No. of digits in %d are %d", n, GetNumberOfDigits(n)));*/
+        int[] arr = {1, 8, 6, 9};
+        System.out.println(String.format("Is arr sorted?: %b", IsArraySorted(arr)));
     }
 
     public static void ShiftAllXToEndRecursive(StringBuilder str) {
@@ -218,10 +227,10 @@ public class RecursiveProblems {
         }
         char currentChar = str.charAt(counter);
         // If current char will be a part of subsequence
-        PrintAllSubsequencesOfAString(str, newString+currentChar, counter+1);
+        PrintAllSubsequencesOfAString(str, newString + currentChar, counter + 1);
 
         // If current char will NOT be a part of subsequence
-        PrintAllSubsequencesOfAString(str, newString, counter+1);
+        PrintAllSubsequencesOfAString(str, newString, counter + 1);
     }
 
     public static void PrintOnlyUniqueSubsequencesOfAString(String str, String newString, int counter, HashSet<String> hashSet) {
@@ -236,10 +245,10 @@ public class RecursiveProblems {
         }
         char currentChar = str.charAt(counter);
         // If current char will be a part of subsequence
-        PrintOnlyUniqueSubsequencesOfAString(str, newString+currentChar, counter+1, hashSet);
+        PrintOnlyUniqueSubsequencesOfAString(str, newString + currentChar, counter + 1, hashSet);
 
         // If current char will NOT be a part of subsequence
-        PrintOnlyUniqueSubsequencesOfAString(str, newString, counter+1, hashSet);
+        PrintOnlyUniqueSubsequencesOfAString(str, newString, counter + 1, hashSet);
     }
 
     /*Print all possible outputs for a combination of keys on the phone keypad*/
@@ -251,7 +260,56 @@ public class RecursiveProblems {
         char currentChar = str.charAt(counter);
         String mapping = keypadMap[currentChar - '0'];
         for (int i = 0; i < mapping.length(); i++) {
-            PrintKeypadCombination(str, counter + 1, combination+mapping.charAt(i));
+            PrintKeypadCombination(str, counter + 1, combination + mapping.charAt(i));
         }
+    }
+
+    public static int SumOfNNaturalNumbers(int n) {
+        if (n == 1) return 1;
+        return n + SumOfNNaturalNumbers(n - 1);
+    }
+
+    public static float GetPower(int n, int power) {
+        if (n == 0) return 0;
+        if (n == 1 || power == 0) return 1;
+        if (power == 1) return n;
+
+        return n * GetPower(n, power - 1);
+    }
+
+    public static int GetNumberOfDigits(int n) {
+        if (n < 10) return 1;
+        return 1 + GetNumberOfDigits(n/10);
+    }
+
+    public static boolean IsArraySorted(int[] arr) {
+        if (arr.length <= 1) return true;
+
+        // Create a partial array with all elements but 0th, and check if it's sorted or not
+        int[] partialArr = new int[arr.length -1];
+        for (int i =1; i < arr.length; i++) partialArr[i-1] = arr[i];
+
+        // Check if partial array is sorted
+        boolean isArraySorted = IsArraySorted(partialArr);
+
+        // If n-1 is not sorted, we need not check further
+        if (!isArraySorted) return false;
+
+        // If 0th element is less than 1st, arr is sorted
+        isArraySorted = (arr[0] <= arr[1]) ? true : false;
+        return isArraySorted;
+    }
+
+    public static int GetArraySum(int[] arr) {
+        if (arr.length == 0) {
+            return 0;
+        }
+        if (arr.length == 1) {
+            return arr[0];
+        }
+        int[] partialArr = new int[arr.length -1];
+        for (int i =1; i < arr.length; i++) partialArr[i-1] = arr[i];
+
+        return arr[0] + GetArraySum(partialArr);
     }
 }
