@@ -4,7 +4,7 @@ import static Basics.Arrays.swapInArray;
 
 public class Sorting {
     public static void main(String[] args) {
-        //int[] arr = {7, 8, 3, 1, 2};
+        int[] arr = {7, 8, 3, 1, 2};
         /*// arr = bubbleSort(arr);
         // arr = bubbleSortUsingWhile(arr);*/
         /*// arr = selectionSort(arr);
@@ -18,15 +18,15 @@ public class Sorting {
         swap(a, b);
         System.out.println("After swapping, a: " + a + ", b: " + b);*/
         // quickSort(arr, 0, arr.length-1);
-        /*int[] temp = new int[arr.length];
-        mergeSortDivide(arr, temp, 0, arr.length - 1);*/
+        mergeSort(arr);
+        print(arr);
         /*int[] arr = {9, -3, 2, 5, 9, 6, 8, -6, 1, 8};
         //System.out.println(quickSort_Partition(arr, 0, arr.length - 1));
         quickSort_Sorting(arr, 0, arr.length - 1);*/
 
-        int[] arr = {-4, -1, 0, 3, 10};
+        /*int[] arr = {-4, -1, 0, 3, 10};
         sortQuaresArray(arr);
-        print(arr);
+        print(arr);*/
     }
 
     public static void print(int[] arr) {
@@ -195,34 +195,6 @@ public class Sorting {
         a = a - b;
     }
 
-    public static int getItself(int itself, int dummy) {
-        return itself;
-    }
-
-    public static void quickSort(int[] arr, int startIndex, int endIndex) {
-        if (startIndex < endIndex) {
-            int pivotIndex = partition(arr, startIndex, endIndex);
-            quickSort(arr, startIndex, pivotIndex - 1);
-            quickSort(arr, pivotIndex + 1, endIndex);
-        }
-    }
-
-    /* Principle: at the end, all elements smaller than pivot will be to the left of pivot and
-     * larger will be to the right of the pivot
-     */
-    public static int partition(int[] arr, int startIndex, int endIndex) {
-        int pivot = arr[endIndex], left = startIndex - 1;
-        for (int i = startIndex; i < endIndex; i++) {
-            if (arr[i] <= pivot) {
-                left++;
-                arr[i] = getItself(arr[left], arr[left] = arr[i]);
-            }
-        }
-
-        arr[endIndex] = getItself(arr[left + 1], arr[left + 1] = arr[endIndex]);
-        return left + 1;
-    }
-
     public static int[] bubbleSortUsingWhile(int[] arr) {
         int counter = 1;
         while (counter < arr.length) {
@@ -281,29 +253,34 @@ public class Sorting {
         return arr;
     }
 
+    public static void mergeSort(int[] arr) {
+        int[] temp = new int[arr.length];
+        mergeSort_Divide(arr, temp, 0, arr.length - 1);
+    }
+
     /*
      * This method is the Divide part of our Divide & Conquer approach
      * Here, we'll keep dividing the array till it contains only 1 element.
      * Then, in the Conquer part, we'll keep Sorting & Merging these unsorted parts
      */
-    public static void mergeSortDivide(int[] arr, int[] temp, int low, int high) {
+    private static void mergeSort_Divide(int[] arr, int[] temp, int low, int high) {
         if (low < high) {
             int mid = low + (high - low) / 2;
-            mergeSortDivide(arr, temp, low, mid);
-            mergeSortDivide(arr, temp, mid + 1, high);
-            mergeSortConquer(arr, temp, low, mid, high);
+            mergeSort_Divide(arr, temp, low, mid);
+            mergeSort_Divide(arr, temp, mid + 1, high);
+            mergeSort_Conquer(arr, temp, low, mid, high);
         }
     }
 
-    public static void mergeSortConquer(int[] arr, int[] temp, int low, int mid, int high) {
+    private static void mergeSort_Conquer(int[] arr, int[] temp, int low, int mid, int high) {
         // Copy the contents from arr to temp
         for (int i = low; i <= high; i++) {
             temp[i] = arr[i];
         }
 
-        int i = low; // traverse left sorted sub-array
-        int j = mid + 1; // traverse right sorted sub-array
-        int k = low; // will merge both sorted arrays into main array(arr)
+        int i = low;        // traverse left sorted sub-array
+        int j = mid + 1;    // traverse right sorted sub-array
+        int k = low;        // will merge both sorted arrays into main array(arr)
 
         // Update value from temp to original arr in correct order
         while (i <= low && j <= high) {
@@ -346,7 +323,7 @@ public class Sorting {
         }
     }
 
-    public static void sortQuaresArray(int[] arr) {
+    public static void sortSquaresArray(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             arr[i] *= arr[i];
         }

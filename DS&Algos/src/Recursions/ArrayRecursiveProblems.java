@@ -2,7 +2,9 @@ package Recursions;
 
 import java.util.HashSet;
 
-public class RecursiveProblems {
+import static DataStructures.Arrays.ArrayProblems.displayArray;
+
+public class ArrayRecursiveProblems {
     public static String[] keypadMap = {".", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
     public static void main(String[] args) {
@@ -41,8 +43,24 @@ public class RecursiveProblems {
         System.out.println(String.format("(%d^%d) = %.2e", n, power, GetPower(n, power)));*/
         /*int n = 1;
         System.out.println(String.format("No. of digits in %d are %d", n, GetNumberOfDigits(n)));*/
-        int[] arr = {1, 8, 6, 9};
-        System.out.println(String.format("Is arr sorted?: %b", IsArraySorted(arr)));
+        int[] arr = {1, 3, 6, 3, 9};
+        int x = 9;
+        // System.out.println(String.format("Is arr sorted?: %b", IsArraySorted(arr)));
+        // System.out.println(String.format("Arr elements sum: %d", GetArraySum(arr)));
+        // System.out.println(String.format("Is %d present: %b", x, FindXInArray(arr, x)));
+        // System.out.println(String.format("Is %d present: %b", x, FindXInArrayWithoutExtraSpace(null, x)));
+        // System.out.println(String.format("Is arr sorted?: %b", IsArraySortedWithoutExtraSpace(arr, 0)));
+        /*int firstOccurenceIndex = FindFirstOccurenceIndexOfGivenNumber(arr, x);
+        String str = (firstOccurenceIndex == -1) ? "%d doesn't exists" : "%d exists at %dth index, firstly";
+        System.out.println(String.format(str, x, firstOccurenceIndex));*/
+
+        /*int lastOccurenceIndex = FindLastOccurenceIndexOfGivenNumber(arr, x);
+        String str = (lastOccurenceIndex == -1) ? "%d doesn't exists" : "%d exists at %dth index, lastly";
+        System.out.println(String.format(str, x, lastOccurenceIndex));*/
+
+        int[] allOccurenceIndexArray = FindAllOccurenceIndexOfGivenNumber(arr, x);
+        System.out.println(String.format("%d occurs at following indices: ", x));
+        displayArray(allOccurenceIndexArray);
     }
 
     public static void ShiftAllXToEndRecursive(StringBuilder str) {
@@ -300,16 +318,142 @@ public class RecursiveProblems {
         return isArraySorted;
     }
 
+    /*arr: Input array,
+    * startIndex: Starting index of array
+    * We'll keep arr unchanged, just vary startIndex by increasing it by 1 everytime, till it reaches our last element
+    *  */
+    public static boolean IsArraySortedWithoutExtraSpace(int[] arr, int startIndex) {
+        // If true, indicates there's only 1 element in array. Hence, array is sorted
+        if (startIndex >= arr.length - 1) return true;
+
+        // Check if starting element is greater than it's next
+        if (arr[startIndex] > arr[startIndex + 1]) return false;
+
+        // We'll keep increasing startIndex, so that check will be performed on arr.size - 1
+        return IsArraySortedWithoutExtraSpace(arr, startIndex + 1);
+    }
+
     public static int GetArraySum(int[] arr) {
+        // If array is of length 0, return 0
         if (arr.length == 0) {
             return 0;
         }
+
+        // If array is of length 1, return the only element
         if (arr.length == 1) {
             return arr[0];
         }
+
+        // Create a partial array with all elements but 0th
         int[] partialArr = new int[arr.length -1];
         for (int i =1; i < arr.length; i++) partialArr[i-1] = arr[i];
 
+        // Problem is divided into 1st element + (arr-1) element's sum
         return arr[0] + GetArraySum(partialArr);
+    }
+
+    /*arr: Input Array
+    * x: Value to find in Array */
+    public static boolean FindXInArray(int[] arr, int x) {
+        if (arr.length == 0) return false;
+        if (arr[0] == x) return true;
+
+        // Create a partial array with all elements but 0th
+        int[] partialArr = new int[arr.length -1];
+        for (int i =1; i < arr.length; i++) partialArr[i-1] = arr[i];
+
+        return FindXInArray(partialArr, x);
+    }
+
+    /*Search for a given number in array,  without creating a new array*/
+    private static boolean FindXInArrayWithoutExtraSpace(int[] arr, int startIndex, int x) {
+        // Check if array is null or empty
+        if (arr == null || arr.length == 0) return false;
+
+        // Check if we've reached to end of array, stop searching
+        if (startIndex == arr.length) return false;
+
+        // Check if element at current index matches the given number
+        if (arr[startIndex] == x) return true;
+
+        return FindXInArrayWithoutExtraSpace(arr, startIndex + 1, x);
+    }
+
+    /*User will call this function, as user mustn't be concerned about the stratIndex and all other things*/
+    public static boolean FindXInArrayWithoutExtraSpace(int[] arr, int x) {
+        return FindXInArrayWithoutExtraSpace(arr, 0, x);
+    }
+
+    public static int FindFirstOccurenceIndexOfGivenNumber(int[] arr, int x) {
+        return FindFirstOccurenceIndexOfGivenNumber(arr, 0, x);
+    }
+
+    private static int FindFirstOccurenceIndexOfGivenNumber(int[] arr, int startIndex, int x) {
+        // Check if array is null or empty
+        if (arr == null || arr.length == 0 || startIndex == arr.length) return -1;
+
+        // Check if we've reached to end of array, stop searching
+        if (arr[startIndex] == x) return startIndex;
+
+        return FindFirstOccurenceIndexOfGivenNumber(arr, startIndex + 1, x);
+    }
+
+    public static int FindLastOccurenceIndexOfGivenNumber(int[] arr, int x) {
+        return FindLastOccurenceIndexOfGivenNumber(arr, arr.length-1, x);
+    }
+
+    /*Idea is to start looking for x, from end*/
+    private static int FindLastOccurenceIndexOfGivenNumber(int[] arr, int endIndex, int x) {
+        // Check if array is null or empty
+        if (arr == null || arr.length == 0 || endIndex == -1) return -1;
+
+        // Check if index at current element matches given number
+        if (arr[endIndex] == x) return endIndex;
+
+        return FindLastOccurenceIndexOfGivenNumber(arr, endIndex - 1, x);
+    }
+
+    public static int[] FindAllOccurenceIndexOfGivenNumber(int[] arr, int x) {
+        int[] resultArr = new int[arr.length];
+        for (int i =0; i < resultArr.length; i++) {
+            resultArr[i] = -1;
+        }
+        resultArr = FindAllOccurenceIndexOfGivenNumber(arr, 0, x, resultArr);
+        // Get count of non -1's in result array
+        int countOfIndexes = 0;
+        for(int i : resultArr) {
+            if (i != -1) countOfIndexes++;
+        }
+
+        int tempArrCounts = (countOfIndexes == 0) ? 1 : countOfIndexes;
+        int[] tempArr = new int[tempArrCounts];
+        if (tempArrCounts == 1 && countOfIndexes == 0) {
+            tempArr[0] = -1;
+        } else {
+            int tempArrCounter = 0;
+            for(int i : resultArr) {
+                if (i != -1) {
+                    tempArr[tempArrCounter] = i;
+                }
+                tempArrCounter++;
+            }
+        }
+
+        return tempArr;
+    }
+
+    /*This function returns all indices of given number.
+    * idea is if element current index(startIndex) matches the given number, add current index to result array's current index   */
+    private static int[] FindAllOccurenceIndexOfGivenNumber(int[] arr, int startIndex, int x, int[] resultArr) {
+        // Check if array is null or empty
+        if (arr == null || arr.length == 0) return null;
+
+        // Check if we've reached till end of array
+        if (startIndex == arr.length - 1) return resultArr;
+
+        // Check if index at current element matches given number
+        if (arr[startIndex] == x) resultArr[startIndex] = startIndex;
+
+        return FindAllOccurenceIndexOfGivenNumber(arr, startIndex + 1, x, resultArr);
     }
 }
