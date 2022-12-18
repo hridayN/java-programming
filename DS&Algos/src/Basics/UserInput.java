@@ -32,6 +32,7 @@ public class UserInput {
         String str2 = input.nextLine();
         System.out.println("You entered: " + str2);
         System.out.println("************************");
+        input.close();
     }
 
     public static void inputUsingBufferedReader() throws IOException {

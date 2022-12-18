@@ -164,6 +164,7 @@ public class Arrays {
             }
         }
         pair p = new pair(min, max);
+        scn.close();
         return p;
     }
 
@@ -186,6 +187,7 @@ public class Arrays {
             }
             System.out.println();
         }
+        scn.close();
     }
 
     /*

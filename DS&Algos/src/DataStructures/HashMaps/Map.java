@@ -1,6 +1,7 @@
 package DataStructures.HashMaps;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Map<K, V> {
     // Collection of buckets(Each is a linked list, containing Key-Value pair and the information of next Key(if any)

@@ -2,6 +2,8 @@ package Basics;
 
 import java.util.Scanner;
 
+import static OCAJP.Chapter2.print2DArray;
+
 public class TwoDArrays {
     public static void main(String[] args) {
         int[][] arr = {{1, 2}, {4, 5}};
@@ -23,14 +25,7 @@ public class TwoDArrays {
         }
     }
 
-    public static void print2DArray(int[][] arr2) {
-        for (int i = 0; i < arr2.length; i++) {
-            for (int j = 0; j < arr2[i].length; j++) {
-                System.out.print("[" + i + "," + j + "] :" + arr2[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
+
 
     public static void arrayOfTestCases() {
         /* rows: total no. of test cases
@@ -70,5 +65,7 @@ public class TwoDArrays {
             odds = 0;
             evens = 0;
         }
+
+        input.close();
     }
 }

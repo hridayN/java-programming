@@ -4,9 +4,11 @@ import java.util.HashMap;
 
 public class StringProblemsUsingHashMap {
     public static void main(String[] args) {
-        String inputStr = "thisisinput", expectedOutput = "thisnpu";
+        // String inputStr = "thisisinput", expectedOutput = "thisnpu";
         // System.out.println(String.format("Original string: %s, After removing duplicates: %s", inputStr, RemoveDuplicates(inputStr)));
-        System.out.println(String.format("Output matches expected Output: %b", (RemoveDuplicates(inputStr)).equals(expectedOutput)));
+        // System.out.println(String.format("Output matches expected Output: %b", (RemoveDuplicates(inputStr)).equals(expectedOutput)));
+        String str = "xy";
+        System.out.println(String.format("Highest occurring char: %c", GetHighestOccurringChar(str)));
     }
 
     public static String RemoveDuplicates(String str) {
@@ -20,5 +22,22 @@ public class StringProblemsUsingHashMap {
             }
         }
         return result;
+    }
+
+    public static char GetHighestOccurringChar(String str) {
+        HashMap<Character, Integer> hashMap = new HashMap<>();
+        int highestOccurringCharFrequency = 0;
+        char highestOccurringChar = '\n';
+        for (int i =0; i < str.length(); i++) {
+            char currentChar = str.charAt(i);
+            HashMapUtility.AddKeyToHashMap(hashMap, currentChar);
+            // highestOccurringCharFrequency = hashMap.get(currentChar);
+            int currentCharFrequency = hashMap.get(currentChar);
+            if (currentCharFrequency > highestOccurringCharFrequency) {
+                highestOccurringCharFrequency = currentCharFrequency;
+                highestOccurringChar = currentChar;
+            }
+        }
+        return highestOccurringChar;
     }
 }

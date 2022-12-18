@@ -83,7 +83,7 @@ public class Tree<T> {
                 pendingNodes.Enqueue(childNode);
             }
         }
-
+        scanner.close();
         return rootNode;
     }
 

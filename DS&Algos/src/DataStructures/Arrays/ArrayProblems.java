@@ -69,9 +69,11 @@ public class ArrayProblems {
         /*int[] a1 = {2, 6, 1, 2}, a2 = {1, 2, 3, 4, 2};
         System.out.println(getIntersection(a1, a2));*/
 
-        int[] arr = {-2, 2, 6, -2, 2, -6, 3};
+        /*int[] arr = {-2, 2, 6, -2, 2, -6, 3};
         int sum = 0;
-        System.out.println(String.format("%d Pairs exists, summing to %d", GetPairsSummingToGivenNumberUsingHashMap(arr, arr.length, sum), sum));
+        System.out.println(String.format("%d Pairs exists, summing to %d", GetPairsSummingToGivenNumberUsingHashMap(arr, arr.length, sum), sum));*/
+        int[] arr = {3, 4, 6, 5, 2, 7};
+        System.out.println(String.format("Equilibrium index: %d", GetEquilibriumIndex(arr)));
     }
 
     public static void displayArray(int[] arr) {
@@ -620,7 +622,7 @@ public class ArrayProblems {
     public static int mostRepeatedElement(int[] arr) {
         int mostRepeatedElement = arr[0];
         HashMap<Integer, Integer> map = new HashMap<>();
-        for(int i : arr) {
+        for (int i : arr) {
             if (map.containsKey(i)) {
                 map.put(i, map.get(i) + 1);
             } else {
@@ -643,15 +645,15 @@ public class ArrayProblems {
     }
 
     /*
-    * Approach 1: Create a hashmap and add both array's elements and their frequencies.
-    * For every 2 frequencies, push element into an List
-    * Approach 2: Create a hashmap and add 1st array's elements into it. Now for every array element, if it's present into
-    * map and frequency is more than 0, add it to resulting list*/
+     * Approach 1: Create a hashmap and add both array's elements and their frequencies.
+     * For every 2 frequencies, push element into an List
+     * Approach 2: Create a hashmap and add 1st array's elements into it. Now for every array element, if it's present into
+     * map and frequency is more than 0, add it to resulting list*/
     public static ArrayList<Integer> getIntersection(int[] a1, int[] a2) {
         ArrayList<Integer> interSection = new ArrayList<>();
         HashMap<Integer, Integer> hashMap = new HashMap<>();
-        // Add a1's elements to Hashmap
-        for(int i : a1) {
+        // Add a1's all elements to Hashmap
+        for (int i : a1) {
             if (hashMap.containsKey(i)) {
                 hashMap.put(i, hashMap.get(i) + 1);
             } else {
@@ -659,12 +661,15 @@ public class ArrayProblems {
             }
         }
 
-        for(int i : a2) {
+        /* While adding a2's elements into hashmap, check if it exists into HM.
+            Update its frequency if it exists. And add it to intersection list
+        * */
+        for (int i : a2) {
             if (hashMap.containsKey(i)) {
                 int frequency = hashMap.get(i);
                 if (frequency > 0) {
                     interSection.add(i);
-                    hashMap.put(i, frequency-1);
+                    hashMap.put(i, frequency - 1);
                 }
             }
         }
@@ -718,7 +723,7 @@ public class ArrayProblems {
     public static int GetPairsSummingToGivenNumber(int[] arr, int n, int sum) {
         int counter = 0, pairs = 0;
         for (int i = 0; i < arr.length; i++) {
-            for (int j = i+1; j < arr.length; j++) {
+            for (int j = i + 1; j < arr.length; j++) {
                 //System.out.println("Checked pair: (" + arr[i] + ", " + arr[j] + ")");
                 //counter++;
                 if (arr[i] + arr[j] == sum) {
@@ -754,5 +759,22 @@ public class ArrayProblems {
 
         }
         return pairs;
+    }
+
+    /*To find an index, such that left-sum and right-sum are equal*/
+    public static int GetEquilibriumIndex(int[] arr) {
+        int leftSum = 0, rightSum = 0;
+
+        // Get array element's sum(except 0th element), as rightSum is being calculated for elements to
+        // the right of current element
+        for (int i = 1; i < arr.length; i++) {
+            rightSum += arr[i];
+        }
+        for (int i = 1; i < arr.length; i++) {
+            leftSum += arr[i - 1];
+            rightSum -= arr[i];
+            if (leftSum == rightSum) return i;
+        }
+        return -1;
     }
 }
