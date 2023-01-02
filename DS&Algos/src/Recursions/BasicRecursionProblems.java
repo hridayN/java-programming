@@ -24,21 +24,22 @@ public class BasicRecursionProblems {
         return num1 + GetProduct_Logic(num1, num2, counter + 1);
     }
 
-    public static int GetZeroesCount(int num) {
-        return GetZeroesCount_Logic(num, 0);
+    public static int CountOccurrenceOfGivenNumber(int num, int numToFind) {
+        return CountOccurrenceOfGivenNumber_Logic(num, numToFind, 0);
     }
 
-    public static int GetZeroesCount_Logic(int num, int count) {
+    public static int CountOccurrenceOfGivenNumber_Logic(int num, int numToFind, int count) {
         if (num < 10) return count;
 
-        if (num % 10 == 0) count++;
-        return GetZeroesCount_Logic(num / 10, count);
+        if (num % 10 == numToFind) count++;
+        return CountOccurrenceOfGivenNumber_Logic(num / 10, numToFind, count);
     }
 
     public static double GetGeometricSum(int k) {
         return 1 + GetGeometricSum_Logic(k, 1);
     }
 
+    // Function to calculate Geometric sum upto given terms
     public static double GetGeometricSum_Logic(int k, int counter) {
         if (counter == k) {
             double result = 1 / Math.pow(2, counter);
@@ -56,6 +57,7 @@ public class BasicRecursionProblems {
         return result;
     }
 
+    // Function to calculate sum of all digits of a given number
     public static int GetDigitsSum(int num) {
         if (num < 10) return num % 10;
 

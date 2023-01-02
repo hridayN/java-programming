@@ -22,4 +22,16 @@ public class HashMapUtility<K, V> {
             hashMap.put(key, 1);
         }
     }
+
+    public static void AddArrayElementsToHashmap(HashMap<Integer, Integer> hashMap, int[] arr) {
+        for (int i : arr) {
+            int elementFrequency = 0;
+            if (hashMap.containsKey(i)) {
+                elementFrequency = hashMap.get(i);
+                hashMap.put(i, elementFrequency + 1);
+            } else {
+                hashMap.put(i, 1);
+            }
+        }
+    }
 }

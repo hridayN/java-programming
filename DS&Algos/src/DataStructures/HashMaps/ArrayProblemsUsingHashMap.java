@@ -1,10 +1,10 @@
 package DataStructures.HashMaps;
 
-import DataStructures.Arrays.ArrayProblems;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+
+import static DataStructures.HashMaps.HashMapUtility.AddArrayElementsToHashmap;
 
 public class ArrayProblemsUsingHashMap {
     public static void main(String[] args) {
@@ -75,38 +75,27 @@ public class ArrayProblemsUsingHashMap {
         return absoluteDifference;
     }
 
+    // Get Intersection of 3 arrays
     public static ArrayList<Integer> GetIntersectionOf3Arrays(int[] a1, int[] a2, int[] a3) {
         ArrayList<Integer> intersection = new ArrayList<>();
         HashMap<Integer, Integer> hashMap = new HashMap<>();
 
         // Add a1's elements to Hashmap
-        AddOrUpdateHashmap(hashMap, a1);
+        AddArrayElementsToHashmap(hashMap, a1);
 
         // Add a2's elements to Hashmap
-        AddOrUpdateHashmap(hashMap, a2);
+        AddArrayElementsToHashmap(hashMap, a2);
 
         // Add a3's elements to Hashmap
-        AddOrUpdateHashmap(hashMap, a3);
+        AddArrayElementsToHashmap(hashMap, a3);
 
         // Get hashmap keys
         Set<Integer> keySet = hashMap.keySet();
         for (int key : keySet) {
             int keyValue = hashMap.get(key);
-            // if (keyValue % 3 == 0) intersection.add(key);
-            System.out.println(String.format("(key: %d, Value: %d)", key, keyValue));
+            if (keyValue % 3 == 0) intersection.add(key);
+            // System.out.println(String.format("(key: %d, Value: %d)", key, keyValue));
         }
         return intersection;
-    }
-
-    public static void AddOrUpdateHashmap(HashMap<Integer, Integer> hashMap, int[] arr) {
-        for (int i : arr) {
-            int elementFrequency = 0;
-            if (hashMap.containsKey(i)) {
-                elementFrequency = hashMap.get(i);
-                hashMap.put(i, elementFrequency + 1);
-            } else {
-                hashMap.put(i, 1);
-            }
-        }
     }
 }
