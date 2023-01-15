@@ -21,82 +21,82 @@ public class SinglyLinkedList<T> {
         System.out.println(String.format("Length: %d", GetLength(singlyLinkedList.head)));
         DisplayLinkedList(singlyLinkedList.head);*/
 
-        /* // Loop Detection in list
+        /* // Loop Detection in listHead
          ListNode<Integer>  loopedList = CreateLoopInLinkedList();
         System.out.println(String.format("Does loop exists: %b", DetectLoopInLinkedList(loopedList)));
         System.out.println(String.format("Loop exists at Node with data: %d", GetLoopStartNodeInLinkedList(loopedList)));*/
 
-        ListNode<Integer> list = CreateLinkedList();
+        ListNode<Integer> listHead = CreateLinkedList_EvenLength();
         ListNode<Integer> updatedList = null;
 
         /*// INSERTION
         // Insert at beginning
-         ListNode<Integer>  list = CreateLinkedList();
-         ListNode<Integer>  updatedList = InsertAtBeginning(list, 50);
+         ListNode<Integer>  listHead = CreateLinkedList();
+         ListNode<Integer>  updatedList = InsertAtBeginning(listHead, 50);
         System.out.println(String.format("Length: %d", singlyLinkedList.GetLength(updatedList)));
         DisplayLinkedList(updatedList);
 
         // Insert at end
-        updatedList = InsertAtEnd(list, 60);
+        updatedList = InsertAtEnd(listHead, 60);
         System.out.println(String.format("Length: %d", singlyLinkedList.GetLength(updatedList)));
         DisplayLinkedList(updatedList);
 
-         ListNode<Integer>  n = GetNthNodeByPosition(list, 3);
+         ListNode<Integer>  n = GetNthNodeByPosition(listHead, 3);
         System.out.println(n.data);
 
         // Insert at given position
-        updatedList = InsertAtNthIndex(list, 2, 5);
+        updatedList = InsertAtNthIndex(listHead, 2, 5);
         System.out.println(String.format("Length: %d", GetLength(updatedList)));
         DisplayLinkedList(updatedList);
-        updatedList = InsertNodeInSortedList(list, new ListNode(15));
+        updatedList = InsertNodeInSortedList(listHead, new ListNode(15));
         DisplayLinkedList(updatedList);*/
 
         /* DELETION
         // Delete node from a position other than first and last
-        updatedList = DeleteNode(list, 1);
+        updatedList = DeleteNode(listHead, 1);
         System.out.println(String.format("Length: %d", GetLength(updatedList)));
         DisplayLinkedList(updatedList);
 
         // Delete node from 1st position
-        updatedList = DeleteNode(list, 1);
+        updatedList = DeleteNode(listHead, 1);
         System.out.println(String.format("Length: %d", GetLength(updatedList)));
         DisplayLinkedList(updatedList);
 
-        System.out.println(String.format("MiddleNode data: %d", GetMiddleNode(list).data));
+        System.out.println(String.format("MiddleNode data: %d", GetMiddleNode(listHead).data));
 
         // Delete node from last position
-        updatedList = DeleteNode(list, GetLength(list));
+        updatedList = DeleteNode(listHead, GetLength(listHead));
         System.out.println(String.format("Length: %d", GetLength(updatedList)));
         DisplayLinkedList(updatedList);
 
         // Delete node from invalid position
-        updatedList = DeleteNode(list, 0);
-        updatedList = DeleteNodeByValue(list, 10);
+        updatedList = DeleteNode(listHead, 0);
+        updatedList = DeleteNodeByValue(listHead, 10);
         DisplayLinkedList(updatedList);*/
 
         /*// REVERSAL
         // Reverse LinkedList
-        updatedList = ReverseLinkedList(list);
+        updatedList = ReverseLinkedList(listHead);
         DisplayLinkedList(updatedList);*/
 
         /* // RETREIVAL
-        // System.out.println(String.format("MiddleNode data: %d", GetMiddleNode(list).data));
+        // System.out.println(String.format("MiddleNode data: %d", GetMiddleNode(listHead).data));
 
         // Get Nth node from end
         int position = 3;
-         ListNode<Integer>  nthNodeFromEnd = GetNthNodeFromEnd(list, position);
+         ListNode<Integer>  nthNodeFromEnd = GetNthNodeFromEnd(listHead, position);
         System.out.println(String.format("%dth node from end is: [%d|%d]", position, nthNodeFromEnd.data, nthNodeFromEnd.next.data));*/
 
         /* // SWAPPING
-        DisplayLinkedList(list);
-        SwapPositionsDataInLinkedList(list, 2, 3);
-        DisplayLinkedList(list);*/
+        DisplayLinkedList(listHead);
+        SwapPositionsDataInLinkedList(listHead, 2, 3);
+        DisplayLinkedList(listHead);*/
 
         /* // SORTING
-        updatedList = BubbleSortLinkedList(list);
+        updatedList = BubbleSortLinkedList(listHead);
         DisplayLinkedList(updatedList);*/
 
-        /* ListNode<Integer>  a = list;
+        /* ListNode<Integer>  a = listHead;
          ListNode<Integer>  b = ReverseLinkedList(CreateLinkedList());
         // updatedList = AddTwoSinglyLinkedLists(a, b);
         DisplayLinkedList(b);*/
@@ -109,10 +109,12 @@ public class SinglyLinkedList<T> {
         ll.remove();
         System.out.println(ll);*/
 
-        // DisplayLinkedList(MoveLastNNodesToFront(list, 3));
-        DisplayLinkedList(list);
-        //DisplayLinkedList(InsertNodeRecursive(list, 3));
-        DisplayLinkedList(DeleteListNodeRecursively(list, 5, 0));
+        // DisplayLinkedList(MoveLastNNodesToFront(listHead, 3));
+        // DisplayLinkedList(listHead);
+        //DisplayLinkedList(InsertNodeRecursive(listHead, 3));
+        // DisplayLinkedList(DeleteListNodeRecursively(listHead, 5, 0));
+        listHead = CreateLinkedList_OddLength();
+        System.out.println(String.format("Middle node: %d", GetMiddleNode(listHead).data));
     }
 
     public static void DisplayLinkedList(ListNode<Integer> list) {
@@ -258,7 +260,7 @@ public class SinglyLinkedList<T> {
         return listHead;
     }
 
-    public static ListNode<Integer> GetMiddleNode(ListNode<Integer> list) {
+    public static ListNode<Integer> GetMiddleNodeByLength(ListNode<Integer> list) {
         int length = GetLength(list), position = 0;
         position = (length / 2) + 1;
         return GetNthNodeByPosition(list, position);
@@ -464,7 +466,7 @@ public class SinglyLinkedList<T> {
         return dummy.next;
     }
 
-    public static ListNode<Integer> CreateLinkedList() {
+    public static ListNode<Integer> CreateLinkedList_EvenLength() {
         ListNode<Integer> first = new ListNode(4);
         ListNode<Integer> second = new ListNode(5);
         ListNode<Integer> third = new ListNode(6);
@@ -478,6 +480,22 @@ public class SinglyLinkedList<T> {
         fourth.next = fifth;
         fifth.next = sixth;
         sixth.next = null;
+
+        return first;
+    }
+
+    public static ListNode<Integer> CreateLinkedList_OddLength() {
+        ListNode<Integer> first = new ListNode(4);
+        ListNode<Integer> second = new ListNode(5);
+        ListNode<Integer> third = new ListNode(6);
+        ListNode<Integer> fourth = new ListNode(7);
+        ListNode<Integer> fifth = new ListNode(8);
+
+        first.next = second;
+        second.next = third;
+        third.next = fourth;
+        fourth.next = fifth;
+        fifth.next = null;
 
         return first;
     }
@@ -512,7 +530,7 @@ public class SinglyLinkedList<T> {
 
             ListNode<Integer> currentNodeTemp = currentNode;
             // We are visitng (N-1)th node
-            if (nodesVisitedCount == n-1) {
+            if (nodesVisitedCount == n - 1) {
                 for (int i = 0; i < n && currentNode != null; i++) {
                     currentNode = currentNode.next;
 
@@ -557,5 +575,14 @@ public class SinglyLinkedList<T> {
         }
         listNodeHead.next = DeleteListNodeRecursively(listNodeHead.next, position, counter + 1);
         return listNodeHead;
+    }
+
+    public static ListNode<Integer> GetMiddleNode(ListNode<Integer> headNode) {
+        ListNode<Integer> slow = headNode, fast = headNode;
+        while(fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
     }
 }

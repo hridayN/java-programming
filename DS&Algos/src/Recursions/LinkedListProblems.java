@@ -5,7 +5,7 @@ import DataStructures.LinkedList.SinglyLinkedList;
 
 public class LinkedListProblems<T> {
     public static void main(String[] args) {
-        ListNode<Integer> listHeadNode = SinglyLinkedList.CreateLinkedList();
+        ListNode<Integer> listHeadNode = SinglyLinkedList.CreateLinkedList_EvenLength();
         PrintLinkedList(listHeadNode);
     }
 
