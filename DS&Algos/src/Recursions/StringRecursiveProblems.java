@@ -23,8 +23,11 @@ public class StringRecursiveProblems {
         /*String str = "pip";
         System.out.println(String.format("Result: %s", ReplaceStringPartWithGivenString(str, "pi", "3.14")));*/
 
-        String str = "123";
-        System.out.println(String.format("Result: %d", ConvertStringToInteger(str)));
+       /* String str = "123";
+        System.out.println(String.format("Result: %d", ConvertStringToInteger(str)));*/
+
+        String str = "mnxljrajwhxiaquajokwvoqqphylxpbanmmhfxsmssxzsdnprtgibuhaxnwxzfozexiascybplaaqjcthuydnoowmkzyamodzknkqmwdglqqnhflfslqyowcangsddhcjjuiyfbdkevlghbictrvnmnathotrekyrggwcmbzorqtyeowksywlbetsyhjvczcnvusfdrxythrhhoxtuuprqftgwohcgpngktkharijsovuknae";
+        System.out.println(PrintAllConditionalSubstrings(str));
     }
 
     /*Method to remove the given character from the given string */
@@ -120,6 +123,56 @@ public class StringRecursiveProblems {
         return num;
     }
 
+    public static int PrintAllConditionalSubstrings(String A) {
+        return PrintAllConditionalSubstrings_Logic(A, 0, A.length(), 0);
+    }
+
+    /*Print all substrings which starts with a vowel and ends with a consonant or vice a versa*/
+    public static int PrintAllConditionalSubstrings_Logic(String str, int startIndex, int endIndex, int count) {
+        if (startIndex >= endIndex) return count;
+
+        // Check if 1st char is vowel and last is consonant or vice a versa
+        String substring = str.substring(startIndex, endIndex);
+        if (isCharVowel(substring.charAt(0)) &&
+                isCharConsonant(substring.charAt(substring.length() - 1)) ||
+                (isCharConsonant(substring.charAt(0)) &&
+                        isCharVowel(substring.charAt(substring.length() - 1)))) {
+            count += 1;
+            // System.out.println(str.substring(startIndex, endIndex));
+        }
+
+        count = PrintAllConditionalSubstrings_Logic(str, startIndex, endIndex - 1, count);
+        count = PrintAllConditionalSubstrings_Logic(str, startIndex + 1, endIndex, count);
+        return count;
+    }
+
+    private static boolean isCharAtPositionVowel(String str, int position) {
+        return (str.charAt(position) == 'a' ||
+                str.charAt(position) == 'e' ||
+                str.charAt(position) == 'i' ||
+                str.charAt(position) == 'o' ||
+                str.charAt(position) == 'u');
+    }
+
+    private static boolean isCharAtPositionConsonant(String str, int position) {
+        return !isCharAtPositionVowel(str, position);
+    }
+
+    private static boolean isCharVowel(char c) {
+        return (c == 'a' ||
+                c == 'e' ||
+                c == 'i' ||
+                c == 'o' ||
+                c == 'u');
+    }
+
+    private static boolean isCharConsonant(char c) {
+        return !(c == 'a' &&
+                c == 'e' &&
+                c == 'i' &&
+                c == 'o' &&
+                c == 'u');
+    }
 
     /*REGION: PRIVATE METHODS STARTS*/
 

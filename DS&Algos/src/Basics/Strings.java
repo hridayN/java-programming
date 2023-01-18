@@ -39,6 +39,8 @@ public class Strings {
         //System.out.println(String.format("%c", str.charAt(str.length())));*/
         // CheckProduct();
         //System.out.println(String.format("%d", "abc".indexOf("bc")));
+        String str = "A man, a plan, a canal: Panama";
+        System.out.println(isPalindrome(str));
     }
 
     /*
@@ -241,7 +243,7 @@ public class Strings {
 
     public static void CheckProduct() {
         char[] a1 = {'a', 'b', 'c'}, a2 = {'d', 'e', 'f'};
-        int resultLength =  a1.length * a2.length, counter = 0;
+        int resultLength = a1.length * a2.length, counter = 0;
         String[] result = new String[resultLength];
         for (int i = 0; i < a1.length; i++) {
             for (int j = 0; j < a2.length; j++) {
@@ -249,6 +251,30 @@ public class Strings {
                 counter++;
             }
         }
-        printArray(result);
+        // printArray(result);
+    }
+
+    public static int isPalindrome(String A) {
+        StringBuilder sb = new StringBuilder(A);
+        StringBuilder refactoredString = new StringBuilder();
+        for (int i = 0; i < sb.length(); i++) {
+            // if upper case, convert to lower case
+            if (sb.charAt(i) >= 65 && sb.charAt(i) <= 90) {
+                refactoredString.append((sb.charAt(i) + "").toLowerCase());
+            }
+            // if lowercase or numbers
+            if ((sb.charAt(i) >= 97 && sb.charAt(i) <= 122) || (sb.charAt(i) >= 48 && sb.charAt(i) <= 57)) {
+                refactoredString.append(sb.charAt(i));
+            }
+        }
+
+        int leftPtr = 0, rightPtr = refactoredString.length() - 1;
+        while (leftPtr <= rightPtr) {
+            if (refactoredString.charAt(leftPtr) != refactoredString.charAt(rightPtr)) return 0;
+            leftPtr++;
+            rightPtr--;
+        }
+
+        return 1;
     }
 }
